@@ -1,0 +1,23 @@
+{
+  "name": "mightyiframeintegration",
+  "version": "1.0.25",
+  "description": "A sidebar widget for embedding mighty courses in iframes.",
+  "main": "dist/mightyIframeIntegration.js",
+  "scripts": {
+    "build": "webpack",
+    "version:patch": "npm version patch && npm run build && npm publish",
+    "version:minor": "npm version minor && npm run build && npm publish",
+    "version:major": "npm version major && npm run build && npm publish"
+  },
+  "author": "Mighty",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.24.7",
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "babel-loader": "^9.1.3",
+    "npm-version": "^1.1.0",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4"
+  }
+}

@@ -1,10 +1,17 @@
-import { useState, version } from 'react'
+import { useEffect, useState, version } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { SizedBox } from './sizedBox'
 
 function App() {
   const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    if (window.initSidebar) {
+      window.initSidebar('#learnButton', '646ceccd9d546b90065bcac0', '646cedd19d546b90065bcad8');
+    }
+  }, []);
 
   return (
     <>
@@ -21,9 +28,10 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <SizedBox heigth={10} />
+        <button id="learnButton">
+          Learn react from Mighty
+        </button>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
