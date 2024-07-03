@@ -1,5 +1,6 @@
 import { initSidebar } from "./sidebar";
 let isAuthorized = true;
+let partnerId = null;
 
 function authorizePackage(partnerId) {
 //   try {
@@ -22,4 +23,8 @@ function checkAuthorization() {
   return isAuthorized;
 }
 
-export { authorizePackage, checkAuthorization };
+function getPartnerId() {
+  return partnerId;
+}
+
+export { authorizePackage, checkAuthorization, partnerId };

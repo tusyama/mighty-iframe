@@ -1,4 +1,4 @@
-import { checkAuthorization } from './auth';
+import { checkAuthorization, partnerId } from './auth';
 
 let currentSidebar = null; // Глобальная переменная для отслеживания текущего открытого сайдбара
 const initializedTriggers = new Set();
@@ -92,19 +92,19 @@ function closeSidebar(sidebar) {
   });
 }
 
-function openSidebar(courseId, lessonId) {
+function openSidebar(partnerId) {
   if (currentSidebar) {
     closeSidebar(currentSidebar).then(() => {
-      createAndOpenSidebar(courseId, lessonId);
+      createAndOpenSidebar(partnerId);
     });
   } else {
-    createAndOpenSidebar(courseId, lessonId);
+    createAndOpenSidebar(partnerId);
   }
 }
 
-function createAndOpenSidebar(courseId, lessonId) {
+function createAndOpenSidebar(partnerId) {
   const { sidebar, iframe } = createSidebar();
-  iframe.src = `https://test.mighty.study/courses/${courseId}/${lessonId}`;
+  iframe.src = `http://localhost:3000/space/${partnerId}?partnerID=${partnerId}`;
   document.body.appendChild(sidebar);
   setTimeout(() => {
     sidebar.style.right = '0'; // Анимация выезжания нового сайдбара
@@ -112,7 +112,7 @@ function createAndOpenSidebar(courseId, lessonId) {
   currentSidebar = sidebar;
 }
 
-function initSidebar(selector, courseId, lessonId) {
+function initSidebar(selector, partnerId) {
   if (!checkAuthorization()) {
     console.error('Package not authorized. Please provide a valid partnerId.');
     return;
@@ -126,7 +126,7 @@ function initSidebar(selector, courseId, lessonId) {
   if (element) {
     element.addEventListener("click", () => {
         console.log('cliked');
-      openSidebar(courseId, lessonId);
+      openSidebar(partnerId);
     });
     initializedTriggers.add(selector);
   } else {
