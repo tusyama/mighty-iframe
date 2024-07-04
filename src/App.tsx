@@ -9,7 +9,7 @@ function App() {
 
   useEffect(() => {
     if (window.initSidebar) {
-      window.initSidebar('#learnButton', '646ceccd9d546b90065bcac0', '646cedd19d546b90065bcad8');
+      window.initSidebar('#learnButton', 'Magic_Ball');
     }
   }, []);
 
