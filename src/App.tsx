@@ -9,7 +9,7 @@ function App() {
 
   useEffect(() => {
     if (window.initSidebar) {
-      window.initSidebar('#learnButton', 'Aniborgs');
+      window.initSidebar('#learnButton', 'Magic_Ball');
     }
   }, []);
 

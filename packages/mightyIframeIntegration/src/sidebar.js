@@ -81,14 +81,29 @@ function createSidebar() {
 
 function closeSidebar(sidebar) {
   return new Promise((resolve) => {
-    sidebar.style.right = '-400px'; // Анимация заезжания
-    setTimeout(() => {
-      if (document.querySelector('#course-sidebar')) {
-        document.body.removeChild(document.querySelector('#course-sidebar'));
-      }
-      currentSidebar = null; // Сброс глобальной переменной
-      resolve();
-    }, 300); // Дождитесь завершения анимации перед удалением
+    if (sidebar.style.width === '100%') {
+      // Если сайдбар в полноэкранном режиме, сначала вернуть его в исходное положение
+      sidebar.style.width = '400px';
+      setTimeout(() => {
+        sidebar.style.right = '-400px'; // Анимация заезжания
+        setTimeout(() => {
+          if (document.querySelector('#course-sidebar')) {
+            document.body.removeChild(document.querySelector('#course-sidebar'));
+          }
+          currentSidebar = null; // Сброс глобальной переменной
+          resolve();
+        }, 300); // Дождитесь завершения анимации перед удалением
+      }, 300); // Дождитесь завершения анимации изменения ширины
+    } else {
+      sidebar.style.right = '-400px'; // Анимация заезжания
+      setTimeout(() => {
+        if (document.querySelector('#course-sidebar')) {
+          document.body.removeChild(document.querySelector('#course-sidebar'));
+        }
+        currentSidebar = null; // Сброс глобальной переменной
+        resolve();
+      }, 300); // Дождитесь завершения анимации перед удалением
+    }
   });
 }
 
@@ -104,7 +119,7 @@ function openSidebar(partnerId) {
 
 function createAndOpenSidebar(partnerId) {
   const { sidebar, iframe } = createSidebar();
-  iframe.src = `http://localhost:3000/space/${partnerId}?partnerID=${partnerId}`;
+  iframe.src = `https://test.mighty.study/space/${partnerId}?partnerID=${partnerId}`;
   document.body.appendChild(sidebar);
   setTimeout(() => {
     sidebar.style.right = '0'; // Анимация выезжания нового сайдбара
