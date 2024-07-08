@@ -21,16 +21,16 @@ class Sidebar {
       #${this.mightySidebarId} {
         position: fixed;
         top: 0;
-        right: -400px; /* Initial position off-screen */
+        right: 0;
+        transform: translateX(100%);
         width: 400px;
         height: 100%;
         color: #AFB4B8;
         background: radial-gradient(100% 60% at 100% 100%, rgba(98, 126, 234, 0.2) 0%, rgba(0, 0, 0, 0.02) 97.05%), rgb(28, 29, 38);
-        box-shadow: -2px 0 5px rgba(0,0,0,0.5);
         z-index: 1000;
         display: flex;
         flex-direction: column;
-        transition: right 0.3s ease, width 0.3s ease; /* Animation for sliding out and width change */
+        transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
       }
 
       #${this.mightySidebarId}.mighty-sidebar-expanded {
@@ -38,7 +38,7 @@ class Sidebar {
       }
 
       #${this.mightySidebarId}.mighty-sidebar-open {
-        right: 0;
+        transform: translateX(0);
       }
 
       #${this.mightySidebarId} .mighty-header-sidebar {
@@ -67,10 +67,21 @@ class Sidebar {
         height: 100%;
         border: none;
       }
-      @media (max-width: 600px) {
+     @media (max-width: 992px) {
         #${this.mightySidebarId} {
+          top: auto;
+          bottom: 0;
+          transform: translateY(100%);
           width: 100%;
-          right: -100%;
+          height: 80%;
+          right: 0;
+          border-radius: 20px;
+        }
+        #${this.mightySidebarId}.mighty-sidebar-open {
+          transform: translateY(0);
+        }
+        #${this.mightySidebarId}.mighty-sidebar-expanded {
+          height: 100%;
         }
       }
     `;
@@ -133,8 +144,8 @@ class Sidebar {
         setTimeout(() => {
           sidebar.classList.remove('mighty-sidebar-open'); // Sliding animation
           setTimeout(() => {
-            if (document.querySelector('#course-sidebar')) {
-              document.body.removeChild(document.querySelector('#course-sidebar'));
+            if (document.querySelector(`#${this.mightySidebarId}`)) {
+              document.body.removeChild(document.querySelector(`#${this.mightySidebarId}`));
             }
             this.currentSidebar = null; // Reset global variable
             resolve();
@@ -143,8 +154,8 @@ class Sidebar {
       } else {
         sidebar.classList.remove('mighty-sidebar-open'); // Sliding animation
         setTimeout(() => {
-          if (document.querySelector('#course-sidebar')) {
-            document.body.removeChild(document.querySelector('#course-sidebar'));
+          if (document.querySelector(`#${this.mightySidebarId}`)) {
+            document.body.removeChild(document.querySelector(`#${this.mightySidebarId}`));
           }
           this.currentSidebar = null; // Reset global variable
           resolve();
