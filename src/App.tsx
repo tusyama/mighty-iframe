@@ -10,6 +10,7 @@ function App() {
   useEffect(() => {
     if (window.initSidebar) {
       window.initSidebar('#learnButton', 'Magic_Ball');
+      window.initSidebar('#errorButton', 'Magic_Ball12');
     }
   }, []);
 
@@ -31,6 +32,9 @@ function App() {
         <SizedBox heigth={10} />
         <button id="learnButton">
           Learn react from Mighty
+        </button>
+        <button id="errorButton">
+          error button
         </button>
       </div>
       <p className="read-the-docs">
