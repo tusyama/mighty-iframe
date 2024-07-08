@@ -45,11 +45,12 @@ To use the `MightyIframeIntegration` package, include the following script in yo
 
 ### Step 1
 added this script in head 
-<script src="https://unpkg.com/mightyiframeintegration@1.1.0/dist/mightyIframeIntegration.js"></script>
+<script src="https://unpkg.com/mightyiframeintegration@latest/dist/mightyIframeIntegration.js"></script>
 
 ### Step 2
+register method
 ```html
-<script src="https://unpkg.com/mightyiframeintegration@1.1.0/dist/mightyIframeIntegration.js"></script>
+<script src="https://unpkg.com/mightyiframeintegration@latest/dist/mightyIframeIntegration.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     mightyIframeIntegration.authorizePackage();
