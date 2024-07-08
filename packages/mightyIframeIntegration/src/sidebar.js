@@ -32,6 +32,15 @@ class Sidebar {
         flex-direction: column;
         transition: right 0.3s ease, width 0.3s ease; /* Animation for sliding out and width change */
       }
+
+      #${this.mightySidebarId}.mighty-sidebar-expanded {
+        width: 100%;
+      }
+
+      #${this.mightySidebarId}.mighty-sidebar-open {
+        right: 0;
+      }
+
       #${this.mightySidebarId} .mighty-header-sidebar {
         display: flex;
         justify-content: flex-start;
@@ -84,8 +93,6 @@ class Sidebar {
       const button = document.createElement('div');
       button.innerHTML = svgContent;
       button.classList.add('mighty-sidebar-button');
-      // button.onmouseover = () => button.style.background = 'rgba(255, 255, 255, 0.15)';
-      // button.onmouseout = () => button.style.background = 'transparent';
       button.onclick = onClick;
       return button;
     };
@@ -104,7 +111,7 @@ class Sidebar {
       '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.7852 15.3131L8.71817 9.24609M8.71817 9.24609L8.71817 15.3131M8.71817 9.24609L14.7852 9.24609" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M17.2148 17.7383L23.2818 23.8053M23.2818 23.8053V17.7383M23.2818 23.8053H17.2148" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
       () => {
         expanded = !expanded;
-        sidebar.style.width = expanded ? '100%' : '400px';
+        sidebar.classList.toggle('mighty-sidebar-expanded');
       }
     );
 
@@ -120,28 +127,28 @@ class Sidebar {
 
   closeSidebar(sidebar) {
     return new Promise((resolve) => {
-      if (sidebar.style.width === '100%') {
-        // Если сайдбар в полноэкранном режиме, сначала вернуть его в исходное положение
-        sidebar.style.width = '400px';
+      if (sidebar.classList.contains('mighty-sidebar-expanded')) {
+        // If sidebar is in fullscreen mode, revert it first
+        sidebar.classList.remove('mighty-sidebar-expanded');
         setTimeout(() => {
-          sidebar.style.right = '-400px'; // Анимация заезжания
+          sidebar.classList.remove('mighty-sidebar-open'); // Sliding animation
           setTimeout(() => {
-            if (document.querySelector(`#${this.mightySidebarId}`)) {
-              document.body.removeChild(document.querySelector(`#${this.mightySidebarId}`));
+            if (document.querySelector('#course-sidebar')) {
+              document.body.removeChild(document.querySelector('#course-sidebar'));
             }
-            this.currentSidebar = null; // Сброс глобальной переменной
+            this.currentSidebar = null; // Reset global variable
             resolve();
-          }, 300); // Дождитесь завершения анимации перед удалением
-        }, 300); // Дождитесь завершения анимации изменения ширины
+          }, 300); // Wait for the sliding animation to complete
+        }, 300); // Wait for the width change animation to complete
       } else {
-        sidebar.style.right = '-400px'; // Анимация заезжания
+        sidebar.classList.remove('mighty-sidebar-open'); // Sliding animation
         setTimeout(() => {
-          if (document.querySelector(`#${this.mightySidebarId}`)) {
-            document.body.removeChild(document.querySelector(`#${this.mightySidebarId}`));
+          if (document.querySelector('#course-sidebar')) {
+            document.body.removeChild(document.querySelector('#course-sidebar'));
           }
-          this.currentSidebar = null; // Сброс глобальной переменной
+          this.currentSidebar = null; // Reset global variable
           resolve();
-        }, 300); // Дождитесь завершения анимации перед удалением
+        }, 300); // Wait for the sliding animation to complete
       }
     });
   }
@@ -161,8 +168,8 @@ class Sidebar {
     iframe.src = `https://test.mighty.study/space/${partnerId}?partnerID=${partnerId}`;
     document.body.appendChild(sidebar);
     setTimeout(() => {
-      sidebar.style.right = '0'; // Анимация выезжания нового сайдбара
-    }, 10); // Небольшая задержка для применения начального состояния
+      sidebar.classList.add('mighty-sidebar-open'); // Animation for new sidebar
+    }, 10); // Small delay to apply initial state
     this.currentSidebar = sidebar;
   }
 
