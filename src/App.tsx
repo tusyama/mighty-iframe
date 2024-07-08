@@ -1,6 +1,9 @@
 import { useEffect, useState, version } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+// import reactLogo from './assets/react.svg'
+import wirexLogo from './assets/wirex.png'
+import superChainLogo from './assets/superchain.png';
+// import viteLogo from '/vite.svg'
+
 import './App.css'
 import { SizedBox } from './sizedBox'
 
@@ -11,18 +14,16 @@ function App() {
     if (window.initSidebar) {
       window.initSidebar('#learnButton', 'Magic_Ball');
       window.initSidebar('#errorButton', 'Magic_Ball12');
+      window.initSidebar('#wirex', 'Wirex');
+      window.initSidebar('#superchain', 'Superchain');
     }
   }, []);
 
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+          <span className='logo wirex' id='wirex'><img src={wirexLogo} className="logo" alt="wirex logo" /></span>
+          <span className='logo superchain' id='superchain'><img src={superChainLogo} className="logo react" alt="superchain logo" /></span>
       </div>
       <h1>Vite + React {version}</h1>
       <div className="card">
