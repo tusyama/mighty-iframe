@@ -4,13 +4,17 @@ The `MightyIframeIntegration` package allows you to integrate an iframe-based si
 
 ## Installation
 To use the `MightyIframeIntegration` package, include the following script in your HTML file:
+```html
 <script src="https://unpkg.com/mightyiframeintegration@latest/dist/mightyIframeIntegration.js"></script>
+```
 
 ## Usage
 
 ### Step 1
 added this script in head 
+```html
 <script src="https://unpkg.com/mightyiframeintegration@latest/dist/mightyIframeIntegration.js"></script>
+```
 
 ### Step 2
 register method
