@@ -75,7 +75,7 @@ class Sidebar {
           width: 100%;
           height: 80%;
           right: 0;
-          border-radius: 20px;
+          border-radius: 20px 20px 0 0;
         }
         #${this.mightySidebarId}.mighty-sidebar-open {
           transform: translateY(0);
