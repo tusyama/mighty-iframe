@@ -176,7 +176,7 @@ class Sidebar {
 
   createAndOpenSidebar(partnerId) {
     const { sidebar, iframe } = this.createSidebar();
-    iframe.src = `https://test.mighty.study/space/${partnerId}?partnerID=${partnerId}`;
+    iframe.src = `https://app.mighty.study/space/${partnerId}?partnerID=${partnerId}`;
     document.body.appendChild(sidebar);
     setTimeout(() => {
       sidebar.classList.add('mighty-sidebar-open'); // Animation for new sidebar
