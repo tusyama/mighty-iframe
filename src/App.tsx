@@ -16,6 +16,8 @@ function App() {
       window.initSidebar('#errorButton', 'Magic_Ball12');
       window.initSidebar('#wirex', 'Wirex');
       window.initSidebar('#superchain', 'Superchain');
+      window.initSidebar('#harvestButton', 'Harvest_Labs');
+      window.initSidebar('#mindButton', 'Mintpad');
     }
   }, []);
 
@@ -34,13 +36,19 @@ function App() {
         <button id="learnButton">
           Learn react from Mighty
         </button>
+        <SizedBox heigth={10} width={10}/>
         <button id="errorButton">
           error button
         </button>
+        <SizedBox heigth={10} width={10}/>
+        <button id="harvestButton">
+          Harvest Labs
+        </button>
+        <SizedBox heigth={10} width={10}/>
+        <button id="mindButton">
+          Mintpad
+        </button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
