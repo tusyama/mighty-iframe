@@ -13,12 +13,12 @@ export interface MightyStudyCourse {
 }
 
 declare module 'mightyiframeintegrator' {
-    export function initSidebar(selector: string, partnerID: string, course?: MightyStudyCourse): void;
+    export function initSidebar(params: InitSidebarParams): void;
   }
 
   declare global {
     interface Window {
-      initSidebar: (selector: string, partnerID: string, course?: MightyStudyCourse) => void;
+      initSidebar: (params: InitSidebarParams) => void;
     }
   }
   
