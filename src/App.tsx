@@ -12,12 +12,12 @@ function App() {
 
   useEffect(() => {
     if (window.initSidebar) {
-      window.initSidebar('#learnButton', 'Magic_Ball');
-      window.initSidebar('#errorButton', 'Magic_Ball12');
-      window.initSidebar('#wirex', 'Wirex');
-      window.initSidebar('#superchain', 'Superchain');
-      window.initSidebar('#harvestButton', 'Harvest_Labs');
-      window.initSidebar('#mindButton', 'Mintpad');
+      window.initSidebar({selector: '#learnButton', partnerId: 'Magic_Ball', course: {courseId: '646ceccd9d546b90065bcac0', chapterId: '646cedd19d546b90065bcad8', lessonId: '646cee099d546b90065bcadf'}});
+      window.initSidebar({selector: '#errorButton', partnerId: 'Magic_Ball12'});
+      window.initSidebar({selector: '#wirex', partnerId:'Wirex'});
+      window.initSidebar({selector: '#superchain', partnerId: 'Superchain'});
+      window.initSidebar({selector: '#harvestButton', partnerId: 'Harvest_Labs'});
+      window.initSidebar({selector: '#mindButton', partnerId:'Mintpad'});
     }
   }, []);
 

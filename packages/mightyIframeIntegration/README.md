@@ -8,6 +8,36 @@ To use the `MightyIframeIntegration` package, include the following script in yo
 <script src="https://unpkg.com/mightyiframeintegration@latest/dist/mightyIframeIntegration.js"></script>
 ```
 
+## TypeScript
+add to your d.ts file if you are using typescript 
+
+this code extends the window object type
+```TSX
+export interface InitSidebarParams {
+  selector: string;
+  partnerId: string;
+  course?: MightyStudyCourse;
+}
+
+export interface MightyStudyCourse {
+  courseId: string;
+  chapterId: string;
+  lessonId: string;
+}
+
+declare module 'mightyiframeintegrator' {
+    export function initSidebar(selector: string, partnerID: string, course?: MightyStudyCourse): void;
+  }
+
+  declare global {
+    interface Window {
+      initSidebar: (selector: string, partnerID: string, course?: MightyStudyCourse) => void;
+    }
+  }
+  
+  export {};
+```
+
 ## Usage
 
 ### Step 1
