@@ -18,6 +18,8 @@ function App() {
       window.initSidebar({selector: '#superchain', partnerId: 'Superchain'});
       window.initSidebar({selector: '#harvestButton', partnerId: 'Harvest_Labs'});
       window.initSidebar({selector: '#mindButton', partnerId:'Mintpad'});
+      window.initSidebar({selector: '#mindButtonDark', partnerId:'Mintpad', theme: 'dark'});
+      window.initSidebar({selector: '#mindButtonLight', partnerId:'Mintpad', theme: 'light'});
     }
   }, []);
 
@@ -47,6 +49,14 @@ function App() {
         <SizedBox heigth={10} width={10}/>
         <button id="mindButton">
           Mintpad
+        </button>
+        <SizedBox heigth={10} width={10}/>
+        <button id="mindButtonDark">
+          Mintpad dark theme
+        </button>
+        <SizedBox heigth={10} width={10}/>
+        <button id="mindButtonLight">
+          Mintpad light theme
         </button>
       </div>
     </>

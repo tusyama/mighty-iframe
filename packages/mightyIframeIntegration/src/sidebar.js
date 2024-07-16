@@ -165,22 +165,24 @@ class Sidebar {
     });
   }
 
-  openSidebar(partnerId, course) {
+  openSidebar(partnerId, course, theme) {
     if (this.currentSidebar) {
       this.closeSidebar(this.currentSidebar).then(() => {
-        this.createAndOpenSidebar(partnerId, course);
+        this.createAndOpenSidebar(partnerId, course, theme);
       });
     } else {
-      this.createAndOpenSidebar(partnerId, course);
+      this.createAndOpenSidebar(partnerId, course, theme);
     }
   }
 
-  createAndOpenSidebar(partnerId, course = null) {
+  createAndOpenSidebar(partnerId, course = null, theme = null) {
     const { sidebar, iframe } = this.createSidebar();
     const haveACourse = course !== null && course?.courseId !== null && course?.chapterId !== null && course?.lessonId !== null;
-    let src = `${this.baseUrl}/space/${partnerId}?partnerID=${partnerId}`;
+    const currentTheme = theme == null ? getTheme() : theme;
+    const themeParams = currentTheme ? `&theme=${currentTheme}` : '&'
+    let src = `${this.baseUrl}/space/${partnerId}?partnerID=${partnerId}${themeParams}`;
     if (haveACourse) {
-      src = `${this.baseUrl}/courses/${course.courseId}/${course.chapterId}/${course.lessonId}?partnerID=${partnerId}&theme=${getTheme()}`;
+      src = `${this.baseUrl}/courses/${course.courseId}/${course.chapterId}/${course.lessonId}?partnerID=${partnerId}${themeParams}`;
     }
     iframe.src = src;
     document.body.appendChild(sidebar);
@@ -214,4 +216,4 @@ class Sidebar {
 
 const sidebar = new Sidebar();
 
-export const initSidebar = ({selector, partnerId, course}) => sidebar.initSidebar(selector, partnerId, course);
+export const initSidebar = ({selector, partnerId, course, theme}) => sidebar.initSidebar(selector, partnerId, course, theme);

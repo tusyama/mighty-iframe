@@ -13,10 +13,13 @@ add to your d.ts file if you are using typescript
 
 this code extends the window object type
 ```TSX
+/// <reference types="vite/client" />
+
 export interface InitSidebarParams {
   selector: string;
   partnerId: string;
   course?: MightyStudyCourse;
+  theme?: 'dark' | 'light';
 }
 
 export interface MightyStudyCourse {
@@ -26,12 +29,12 @@ export interface MightyStudyCourse {
 }
 
 declare module 'mightyiframeintegrator' {
-    export function initSidebar(selector: string, partnerID: string, course?: MightyStudyCourse): void;
+    export function initSidebar(params: InitSidebarParams): void;
   }
 
   declare global {
     interface Window {
-      initSidebar: (selector: string, partnerID: string, course?: MightyStudyCourse) => void;
+      initSidebar: (params: InitSidebarParams) => void;
     }
   }
   
