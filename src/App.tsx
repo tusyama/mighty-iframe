@@ -12,7 +12,7 @@ function App() {
 
   useEffect(() => {
     if (window.initSidebar) {
-      window.initSidebar('#learnButton', 'Magic_Ball');
+      window.initSidebar('#learnButton', 'Magic_Ball', {courseId: '646ceccd9d546b90065bcac0', chapterId: '646cedd19d546b90065bcad8', lessonId: '646cee099d546b90065bcadf'});
       window.initSidebar('#errorButton', 'Magic_Ball12');
       window.initSidebar('#wirex', 'Wirex');
       window.initSidebar('#superchain', 'Superchain');

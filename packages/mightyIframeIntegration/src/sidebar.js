@@ -164,19 +164,24 @@ class Sidebar {
     });
   }
 
-  openSidebar(partnerId) {
+  openSidebar(partnerId, course) {
     if (this.currentSidebar) {
       this.closeSidebar(this.currentSidebar).then(() => {
-        this.createAndOpenSidebar(partnerId);
+        this.createAndOpenSidebar(partnerId, course);
       });
     } else {
-      this.createAndOpenSidebar(partnerId);
+      this.createAndOpenSidebar(partnerId, course);
     }
   }
 
-  createAndOpenSidebar(partnerId) {
+  createAndOpenSidebar(partnerId, course) {
     const { sidebar, iframe } = this.createSidebar();
-    iframe.src = `https://app.mighty.study/space/${partnerId}?partnerID=${partnerId}`;
+    const haveACourse = course !== null;
+    let src = `https://app.mighty.study/space/${partnerId}?partnerID=${partnerId}`;
+    if (haveACourse) {
+      src = `https://app.mighty.study/courses/${course.courseId}/${course.chapterId}/${course.lessonId}?partnerID=${partnerId}`;
+    }
+    iframe.src = src;
     document.body.appendChild(sidebar);
     setTimeout(() => {
       sidebar.classList.add('mighty-sidebar-open'); // Animation for new sidebar
@@ -184,7 +189,7 @@ class Sidebar {
     this.currentSidebar = sidebar;
   }
 
-  initSidebar(selector, partnerId) {
+  initSidebar(selector, partnerId, course) {
     if (!checkAuthorization()) {
       console.error('Package not authorized. Please provide a valid partnerId.');
       return;
@@ -197,8 +202,7 @@ class Sidebar {
     const element = document.querySelector(selector);
     if (element) {
       element.addEventListener("click", () => {
-        console.log('cliked');
-        this.openSidebar(partnerId);
+        this.openSidebar(partnerId, course);
       });
       this.initializedTriggers.add(selector);
     } else {
@@ -209,4 +213,4 @@ class Sidebar {
 
 const sidebar = new Sidebar();
 
-export const initSidebar = (selector, partnerId) => sidebar.initSidebar(selector, partnerId);
+export const initSidebar = (selector, partnerId, course) => sidebar.initSidebar(selector, partnerId, course);
