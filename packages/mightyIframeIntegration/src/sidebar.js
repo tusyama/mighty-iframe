@@ -1,18 +1,21 @@
-import { checkAuthorization, getTheme, partnerId } from './auth';
+import { checkAuthorization, getTheme } from './auth';
 
 class Sidebar {
   constructor() {
     this.currentSidebar = null;
-    this.initializedTriggers = new Set();
+    this.initializedTriggers = new Map();
+    this.setTriggers = new Set();
     this.mightySidebarId = 'mighty-course-sidebar';
     this.mightyStyleId = 'mighty-sidebar-styles';
     this.baseUrl = 'https://test.mighty.study';
-
+    this.partnerKey = '099d94c60458dd7429e95eaca9cb622c9246a17a7e35d8859284051c48b3fd11';
+    this.sidebarMapTriggers = {};
     this.addStyles();
+    this.initObserverWhenReady();
   }
 
   addStyles() {
-    if (document.querySelector(this.mightyStyleId)) {
+    if (document.querySelector(`#${this.mightyStyleId}`)) {
       return;
     }
 
@@ -36,6 +39,11 @@ class Sidebar {
 
       #${this.mightySidebarId}.mighty-sidebar-expanded {
         width: 100%;
+      }
+
+      #${this.mightySidebarId}.mighty-sidebar-expanded .mighty-button-close {
+        opacity: 0;
+        pointer-events: none;
       }
 
       #${this.mightySidebarId}.mighty-sidebar-open {
@@ -101,10 +109,13 @@ class Sidebar {
     header.style.padding = '10px';
 
     // Создание кнопки
-    const createButton = (svgContent, onClick) => {
+    const createButton = (svgContent, onClick, additionalClass) => {
       const button = document.createElement('div');
       button.innerHTML = svgContent;
       button.classList.add('mighty-sidebar-button');
+      if (additionalClass) {
+        button.classList.add(additionalClass);
+      }
       button.onclick = onClick;
       return button;
     };
@@ -114,7 +125,8 @@ class Sidebar {
       '<svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 14.6654L7.66667 7.9987L1 1.33203M10.3333 14.6654L17 7.9987L10.3333 1.33203" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
       () => {
         this.closeSidebar(sidebar);
-      }
+      },
+      'mighty-button-close'
     );
 
     // Кнопка изменения ширины
@@ -180,7 +192,7 @@ class Sidebar {
     const haveACourse = course !== null && course?.courseId !== null && course?.chapterId !== null && course?.lessonId !== null;
     const currentTheme = theme == null ? getTheme() : theme;
     const themeParams = currentTheme ? `&theme=${currentTheme}` : '&'
-    let src = `${this.baseUrl}/space/${partnerId}?partnerID=${partnerId}${themeParams}`;
+    let src = `${this.baseUrl}/space/${partnerId}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
     if (haveACourse) {
       src = `${this.baseUrl}/courses/${course.courseId}/${course.chapterId}/${course.lessonId}?partnerID=${partnerId}${themeParams}`;
     }
@@ -198,22 +210,80 @@ class Sidebar {
       return;
     }
 
-    if (this.initializedTriggers.has(selector)) {
-      return; // Кнопка уже инициализирована
-    }
+    console.log('init sidebar');
 
     const element = document.querySelector(selector);
     if (element) {
-      element.addEventListener("click", () => {
+      if (this.initializedTriggers.has(selector)) {
+        const { handler } = this.initializedTriggers.get(selector);
+        element.removeEventListener("click", handler);
+      }
+
+      const handler = () => {
         this.openSidebar(partnerId, course, theme);
-      });
-      this.initializedTriggers.add(selector);
+      };
+
+      element.addEventListener("click", handler);
+      this.initializedTriggers.set(selector, { element, handler, partnerId, course, theme });
+      this.setTriggers.add(selector);
+      this.sidebarMapTriggers[selector] = { course, theme, partnerId }
     } else {
       console.error(`Element with selector "${selector}" not found.`);
     }
+  }
+
+  initObserverWhenReady() {
+    if (document.body) {
+      this.observeDOM();
+    } else {
+      document.addEventListener('DOMContentLoaded', () => this.observeDOM());
+    }
+  }
+
+  observeDOM() {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'childList') {
+          mutation.removedNodes.forEach((node) => {
+            if (node.nodeType === 1) { // Node.ELEMENT_NODE
+              this.removeTrigger(node);
+            }
+          });
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === 1) { // Node.ELEMENT_NODE
+              this.reinitializeTriggers(node);
+            }
+          });
+        }
+      });
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  removeTrigger(element) {
+    this.initializedTriggers.forEach((trigger, selector) => {
+      if (trigger.element === element || element.contains(trigger.element)) {
+        trigger.element.removeEventListener("click", trigger.handler);
+        this.initializedTriggers.delete(selector);
+      }
+    });
+  }
+
+  reinitializeTriggers(element) {
+    console.log(this.setTriggers);
+    this.setTriggers.forEach((trigger, selector) => {
+      console.log(selector, trigger)
+      if (element.matches(selector) || element.querySelector(selector)) {
+        this.initSidebar(selector, this.sidebarMapTriggers[selector].partnerId, this.sidebarMapTriggers[selector].course, this.sidebarMapTriggers[selector].theme);
+      }
+    });
   }
 }
 
 const sidebar = new Sidebar();
 
-export const initSidebar = ({selector, partnerId, course, theme}) => sidebar.initSidebar(selector, partnerId, course, theme);
+export const initSidebar = ({ selector, partnerId, course, theme }) => sidebar.initSidebar(selector, partnerId, course, theme);

@@ -6,9 +6,11 @@ import superChainLogo from './assets/superchain.png';
 
 import './App.css'
 import { SizedBox } from './sizedBox'
+import { NewPage } from './newPage';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const [changedPage, setChangedPage] = useState(false);
 
   useEffect(() => {
     if (window.initSidebar) {
@@ -23,6 +25,12 @@ function App() {
     }
   }, []);
 
+  if (changedPage) {
+    return <>
+    <button onClick={() => setChangedPage(false)}>Change page</button>
+    <NewPage/></>
+  }
+
   return (
     <>
       <div>
@@ -30,6 +38,7 @@ function App() {
           <span className='logo superchain' id='superchain'><img src={superChainLogo} className="logo react" alt="superchain logo" /></span>
       </div>
       <h1>Vite + React {version}</h1>
+      <button onClick={() => setChangedPage(true)}>Change page</button>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
