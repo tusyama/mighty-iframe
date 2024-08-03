@@ -210,9 +210,9 @@ class Sidebar {
       return;
     }
 
-    console.log('init sidebar');
-
     const element = document.querySelector(selector);
+    this.setTriggers.add(selector);
+    this.sidebarMapTriggers[selector] = { course, theme, partnerId }
     if (element) {
       if (this.initializedTriggers.has(selector)) {
         const { handler } = this.initializedTriggers.get(selector);
@@ -225,8 +225,6 @@ class Sidebar {
 
       element.addEventListener("click", handler);
       this.initializedTriggers.set(selector, { element, handler, partnerId, course, theme });
-      this.setTriggers.add(selector);
-      this.sidebarMapTriggers[selector] = { course, theme, partnerId }
     } else {
       console.error(`Element with selector "${selector}" not found.`);
     }
@@ -274,9 +272,7 @@ class Sidebar {
   }
 
   reinitializeTriggers(element) {
-    console.log(this.setTriggers);
     this.setTriggers.forEach((trigger, selector) => {
-      console.log(selector, trigger)
       if (element.matches(selector) || element.querySelector(selector)) {
         this.initSidebar(selector, this.sidebarMapTriggers[selector].partnerId, this.sidebarMapTriggers[selector].course, this.sidebarMapTriggers[selector].theme);
       }

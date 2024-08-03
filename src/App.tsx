@@ -22,6 +22,7 @@ function App() {
       window.initSidebar({selector: '#mindButton', partnerId:'Mintpad'});
       window.initSidebar({selector: '#mindButtonDark', partnerId:'Mintpad', theme: 'dark'});
       window.initSidebar({selector: '#mindButtonLight', partnerId:'Mintpad', theme: 'light'});
+      window.initSidebar({selector: '#mindButtonLightTest', partnerId:'Mintpad', theme: 'light'});
     }
   }, []);
 
