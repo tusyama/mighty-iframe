@@ -1,19 +1,21 @@
-import { checkAuthorization, getTheme, partnerId } from './auth';
+import { checkAuthorization, getTheme } from './auth';
 
 class Sidebar {
   constructor() {
     this.currentSidebar = null;
-    this.initializedTriggers = new Set();
+    this.initializedTriggers = new Map();
+    this.setTriggers = new Set();
     this.mightySidebarId = 'mighty-course-sidebar';
     this.mightyStyleId = 'mighty-sidebar-styles';
     this.baseUrl = 'https://test.mighty.study';
-    this.partnerKey = '099d94c60458dd7429e95eaca9cb622c9246a17a7e35d8859284051c48b3fd11'
-
+    this.partnerKey = '099d94c60458dd7429e95eaca9cb622c9246a17a7e35d8859284051c48b3fd11';
+    this.sidebarMapTriggers = {};
     this.addStyles();
+    this.initObserverWhenReady();
   }
 
   addStyles() {
-    if (document.querySelector(this.mightyStyleId)) {
+    if (document.querySelector(`#${this.mightyStyleId}`)) {
       return;
     }
 
@@ -208,22 +210,80 @@ class Sidebar {
       return;
     }
 
-    if (this.initializedTriggers.has(selector)) {
-      return; // Кнопка уже инициализирована
-    }
+    console.log('init sidebar');
 
     const element = document.querySelector(selector);
     if (element) {
-      element.addEventListener("click", () => {
+      if (this.initializedTriggers.has(selector)) {
+        const { handler } = this.initializedTriggers.get(selector);
+        element.removeEventListener("click", handler);
+      }
+
+      const handler = () => {
         this.openSidebar(partnerId, course, theme);
-      });
-      this.initializedTriggers.add(selector);
+      };
+
+      element.addEventListener("click", handler);
+      this.initializedTriggers.set(selector, { element, handler, partnerId, course, theme });
+      this.setTriggers.add(selector);
+      this.sidebarMapTriggers[selector] = { course, theme, partnerId }
     } else {
       console.error(`Element with selector "${selector}" not found.`);
     }
+  }
+
+  initObserverWhenReady() {
+    if (document.body) {
+      this.observeDOM();
+    } else {
+      document.addEventListener('DOMContentLoaded', () => this.observeDOM());
+    }
+  }
+
+  observeDOM() {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'childList') {
+          mutation.removedNodes.forEach((node) => {
+            if (node.nodeType === 1) { // Node.ELEMENT_NODE
+              this.removeTrigger(node);
+            }
+          });
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === 1) { // Node.ELEMENT_NODE
+              this.reinitializeTriggers(node);
+            }
+          });
+        }
+      });
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  removeTrigger(element) {
+    this.initializedTriggers.forEach((trigger, selector) => {
+      if (trigger.element === element || element.contains(trigger.element)) {
+        trigger.element.removeEventListener("click", trigger.handler);
+        this.initializedTriggers.delete(selector);
+      }
+    });
+  }
+
+  reinitializeTriggers(element) {
+    console.log(this.setTriggers);
+    this.setTriggers.forEach((trigger, selector) => {
+      console.log(selector, trigger)
+      if (element.matches(selector) || element.querySelector(selector)) {
+        this.initSidebar(selector, this.sidebarMapTriggers[selector].partnerId, this.sidebarMapTriggers[selector].course, this.sidebarMapTriggers[selector].theme);
+      }
+    });
   }
 }
 
 const sidebar = new Sidebar();
 
-export const initSidebar = ({selector, partnerId, course, theme}) => sidebar.initSidebar(selector, partnerId, course, theme);
+export const initSidebar = ({ selector, partnerId, course, theme }) => sidebar.initSidebar(selector, partnerId, course, theme);
