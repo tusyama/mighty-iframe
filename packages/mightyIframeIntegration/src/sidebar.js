@@ -1,6 +1,6 @@
-import { checkAuthorization, getTheme } from './auth';
+import { checkAuthorization, getTheme, getExpanded } from './auth';
 
-class Sidebar {
+export class Sidebar {
   constructor() {
     this.currentSidebar = null;
     this.initializedTriggers = new Map();
@@ -9,16 +9,19 @@ class Sidebar {
     this.mightyStyleId = 'mighty-sidebar-styles';
     this.baseUrl = 'https://test.mighty.study';
     this.partnerKey = '099d94c60458dd7429e95eaca9cb622c9246a17a7e35d8859284051c48b3fd11';
+    this.expandedPercent = getExpanded();
     this.sidebarMapTriggers = {};
     this.addStyles();
     this.initObserverWhenReady();
+
+    console.log(getTheme());
   }
 
   addStyles() {
     if (document.querySelector(`#${this.mightyStyleId}`)) {
       return;
     }
-
+    console.log(getTheme());
     const style = document.createElement('style');
     style.id = this.mightyStyleId;
     style.textContent = `
@@ -38,7 +41,7 @@ class Sidebar {
       }
 
       #${this.mightySidebarId}.mighty-sidebar-expanded {
-        width: 100%;
+        width: ${this.expandedPercent};
       }
 
       #${this.mightySidebarId}.mighty-sidebar-expanded .mighty-button-close {
@@ -90,7 +93,7 @@ class Sidebar {
           transform: translateY(0);
         }
         #${this.mightySidebarId}.mighty-sidebar-expanded {
-          height: 100%;
+          height: ${this.expandedPercent};
         }
       }
     `;
@@ -100,6 +103,7 @@ class Sidebar {
   createSidebar() {
     const sidebar = document.createElement('div');
     sidebar.id = this.mightySidebarId;
+    sidebar.classList.add('mighty-sidebar-expanded');
 
     const header = document.createElement('div');
     header.classList.add('mighty-header-sidebar');
@@ -280,6 +284,3 @@ class Sidebar {
   }
 }
 
-const sidebar = new Sidebar();
-
-export const initSidebar = ({ selector, partnerId, course, theme }) => sidebar.initSidebar(selector, partnerId, course, theme);
