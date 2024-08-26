@@ -16,8 +16,8 @@ function App() {
     if (window.initSidebar) {
       window.initSidebar({selector: '#learnButton', partnerId: 'Magic_Ball', course: {courseId: '646ceccd9d546b90065bcac0', chapterId: '646cedd19d546b90065bcad8', lessonId: '646cee099d546b90065bcadf'}, percent: "80%"});
       window.initSidebar({selector: '#errorButton', partnerId: 'Magic_Ball12', percent: "70%"});
-      window.initSidebar({selector: '#wirex', partnerId:'Wirex', percent: "100%"});
-      window.initSidebar({selector: '#superchain', partnerId: 'Superchain',percent: "100%"});
+      window.initSidebar({selector: '#wirex', partnerId:'Wirex', percent: "90%"});
+      window.initSidebar({selector: '#superchain', partnerId: 'Superchain',percent: "70%"});
       window.initSidebar({selector: '#harvestButton', partnerId: 'Harvest_Labs', percent: "60%"});
       window.initSidebar({selector: '#mindButton', partnerId:'Mintpad', percent: "65%"});
       window.initSidebar({selector: '#mindButtonDark', partnerId:'Mintpad', theme: 'dark'});
