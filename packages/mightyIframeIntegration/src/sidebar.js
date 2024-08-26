@@ -1,6 +1,6 @@
 import { checkAuthorization, getTheme } from './auth';
 
-class Sidebar {
+export class Sidebar {
   constructor() {
     this.currentSidebar = null;
     this.initializedTriggers = new Map();
@@ -12,13 +12,15 @@ class Sidebar {
     this.sidebarMapTriggers = {};
     this.addStyles();
     this.initObserverWhenReady();
+
+    console.log(getTheme());
   }
 
   addStyles() {
     if (document.querySelector(`#${this.mightyStyleId}`)) {
       return;
     }
-
+    console.log(getTheme());
     const style = document.createElement('style');
     style.id = this.mightyStyleId;
     style.textContent = `
@@ -38,7 +40,7 @@ class Sidebar {
       }
 
       #${this.mightySidebarId}.mighty-sidebar-expanded {
-        width: 100%;
+        width: var(--mighty-expanded-width);
       }
 
       #${this.mightySidebarId}.mighty-sidebar-expanded .mighty-button-close {
@@ -90,16 +92,20 @@ class Sidebar {
           transform: translateY(0);
         }
         #${this.mightySidebarId}.mighty-sidebar-expanded {
-          height: 100%;
+          height: var(--mighty-expanded-width);
         }
       }
     `;
     document.head.appendChild(style);
   }
 
-  createSidebar() {
+  createSidebar(percent) {
+    document.documentElement.style.setProperty('--mighty-expanded-width', this.percent);
     const sidebar = document.createElement('div');
     sidebar.id = this.mightySidebarId;
+    if (percent) {
+      sidebar.classList.add('mighty-sidebar-expanded');
+    }
 
     const header = document.createElement('div');
     header.classList.add('mighty-header-sidebar');
@@ -177,18 +183,19 @@ class Sidebar {
     });
   }
 
-  openSidebar(partnerId, course, theme) {
+  openSidebar(partnerId, course, theme, percent) {
     if (this.currentSidebar) {
       this.closeSidebar(this.currentSidebar).then(() => {
-        this.createAndOpenSidebar(partnerId, course, theme);
+        this.createAndOpenSidebar(partnerId, course, theme, percent);
       });
     } else {
-      this.createAndOpenSidebar(partnerId, course, theme);
+      this.createAndOpenSidebar(partnerId, course, theme, percent);
     }
   }
 
-  createAndOpenSidebar(partnerId, course = null, theme = null) {
-    const { sidebar, iframe } = this.createSidebar();
+  createAndOpenSidebar(partnerId, course = null, theme = null, percent) {
+    this.percent = percent ? percent : '100%';
+    const { sidebar, iframe } = this.createSidebar(percent);
     const haveACourse = course !== null && course?.courseId !== null && course?.chapterId !== null && course?.lessonId !== null;
     const currentTheme = theme == null ? getTheme() : theme;
     const themeParams = currentTheme ? `&theme=${currentTheme}` : '&'
@@ -204,15 +211,18 @@ class Sidebar {
     this.currentSidebar = sidebar;
   }
 
-  initSidebar(selector, partnerId, course, theme) {
+  initSidebar(selector, partnerId, course, theme, percentW) {
     if (!checkAuthorization()) {
       console.error('Package not authorized. Please provide a valid partnerId.');
       return;
     }
+    console.log({ selector, percentW })
+    console.log(this.sidebarMapTriggers[selector])
+    const percent = percentW ? percentW : null;
 
     const element = document.querySelector(selector);
     this.setTriggers.add(selector);
-    this.sidebarMapTriggers[selector] = { course, theme, partnerId }
+    this.sidebarMapTriggers[selector] = { course, theme, partnerId, percent }
     if (element) {
       if (this.initializedTriggers.has(selector)) {
         const { handler } = this.initializedTriggers.get(selector);
@@ -220,11 +230,11 @@ class Sidebar {
       }
 
       const handler = () => {
-        this.openSidebar(partnerId, course, theme);
+        this.openSidebar(partnerId, course, theme, percent);
       };
 
       element.addEventListener("click", handler);
-      this.initializedTriggers.set(selector, { element, handler, partnerId, course, theme });
+      this.initializedTriggers.set(selector, { element, handler, partnerId, course, theme, percent });
     } else {
       console.error(`Element with selector "${selector}" not found.`);
     }
@@ -274,12 +284,9 @@ class Sidebar {
   reinitializeTriggers(element) {
     this.setTriggers.forEach((trigger, selector) => {
       if (element.matches(selector) || element.querySelector(selector)) {
-        this.initSidebar(selector, this.sidebarMapTriggers[selector].partnerId, this.sidebarMapTriggers[selector].course, this.sidebarMapTriggers[selector].theme);
+        this.initSidebar(selector, this.sidebarMapTriggers[selector].partnerId, this.sidebarMapTriggers[selector].course, this.sidebarMapTriggers[selector].theme, this.sidebarMapTriggers[selector].percent);
       }
     });
   }
 }
 
-const sidebar = new Sidebar();
-
-export const initSidebar = ({ selector, partnerId, course, theme }) => sidebar.initSidebar(selector, partnerId, course, theme);
