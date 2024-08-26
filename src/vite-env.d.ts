@@ -5,6 +5,7 @@ export interface InitSidebarParams {
   partnerId: string;
   course?: MightyStudyCourse;
   theme?: 'dark' | 'light';
+  percent?: string;
 }
 
 export interface MightyStudyCourse {
