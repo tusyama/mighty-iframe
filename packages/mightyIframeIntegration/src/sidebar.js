@@ -29,7 +29,7 @@ export class Sidebar {
         top: 0;
         right: 0;
         transform: translateX(100%);
-        width: 400px;
+        width: var(--mighty-expanded-width);
         height: 100%;
         color: #AFB4B8;
         background: radial-gradient(100% 60% at 100% 100%, rgba(98, 126, 234, 0.2) 0%, rgba(0, 0, 0, 0.02) 97.05%), rgb(28, 29, 38);
@@ -40,7 +40,7 @@ export class Sidebar {
       }
 
       #${this.mightySidebarId}.mighty-sidebar-expanded {
-        width: var(--mighty-expanded-width);
+        width: 100%;
       }
 
       #${this.mightySidebarId}.mighty-sidebar-expanded .mighty-button-close {
@@ -84,7 +84,7 @@ export class Sidebar {
           bottom: 0;
           transform: translateY(100%);
           width: 100%;
-          height: 80%;
+          height: var(--mighty-expanded-width);
           right: 0;
           border-radius: 20px 20px 0 0;
         }
@@ -92,7 +92,7 @@ export class Sidebar {
           transform: translateY(0);
         }
         #${this.mightySidebarId}.mighty-sidebar-expanded {
-          height: var(--mighty-expanded-width);
+          height: 100%;
         }
       }
     `;
@@ -103,9 +103,9 @@ export class Sidebar {
     document.documentElement.style.setProperty('--mighty-expanded-width', this.percent);
     const sidebar = document.createElement('div');
     sidebar.id = this.mightySidebarId;
-    if (percent) {
-      sidebar.classList.add('mighty-sidebar-expanded');
-    }
+    // if (percent) {
+      // sidebar.classList.add('c');
+    // }
 
     const header = document.createElement('div');
     header.classList.add('mighty-header-sidebar');
