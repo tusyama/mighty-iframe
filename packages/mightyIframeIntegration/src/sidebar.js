@@ -84,7 +84,7 @@ export class Sidebar {
           bottom: 0;
           transform: translateY(100%);
           width: 100%;
-          height: var(--mighty-expanded-width);
+          height: 80%;
           right: 0;
           border-radius: 20px 20px 0 0;
         }
@@ -194,7 +194,7 @@ export class Sidebar {
   }
 
   createAndOpenSidebar(partnerId, course = null, theme = null, percent) {
-    this.percent = percent ? percent : '100%';
+    this.percent = percent ? percent : '40%';
     const { sidebar, iframe } = this.createSidebar(percent);
     const haveACourse = course !== null && course?.courseId !== null && course?.chapterId !== null && course?.lessonId !== null;
     const currentTheme = theme == null ? getTheme() : theme;
