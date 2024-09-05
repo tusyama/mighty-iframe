@@ -211,6 +211,43 @@ export class Sidebar {
     this.currentSidebar = sidebar;
   }
 
+  parseCourseFromUrl(url) {
+    if (!url) {
+      return null;
+    }
+
+    const courseIndex = url.indexOf('/courses/');
+    if (courseIndex === -1) {
+      return null;
+    }
+
+    const coursePart = url.slice(courseIndex + 9);
+    const parts = coursePart.split('/').filter(Boolean);
+
+    const course = {
+      courseId: null,
+      chapterId: null,
+      lessonId: null
+    };
+
+    if (parts.length >= 3) {
+      course.lessonId = parts[parts.length - 1];
+      course.chapterId = parts[parts.length - 2];
+      course.courseId = parts[parts.length - 3];
+    } else if (parts.length === 2) {
+      course.chapterId = parts[parts.length - 1];
+      course.courseId = parts[parts.length - 2];
+    } else if (parts.length === 1) {
+      course.courseId = parts[parts.length - 1];
+    }
+
+    if (!course.courseId && !course.chapterId && !course.lessonId) {
+      return null;
+    }
+
+    return course;
+  }
+
   initSidebar(selector, partnerId, course, theme, percentW) {
     if (!checkAuthorization()) {
       console.error('Package not authorized. Please provide a valid partnerId.');
@@ -289,4 +326,3 @@ export class Sidebar {
     });
   }
 }
-

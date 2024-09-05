@@ -1,3 +1,4 @@
+import { registerMightyWidget } from "./web/migtyWidget";
 import { Sidebar } from "./sidebar";
 
 let isAuthorized = true;
@@ -12,6 +13,9 @@ function authorizePackage(theme = 'dark') {
   const initSidebar = ({ selector, partnerId, course, theme, percent }) => sidebar.initSidebar(selector, partnerId, course, theme, percent);
   
   window.initSidebar = initSidebar;
+  window.mightySidebar = sidebar;
+
+  registerMightyWidget();
 }
 
 function checkAuthorization() {

@@ -13,15 +13,3 @@ export interface MightyStudyCourse {
   chapterId: string;
   lessonId: string;
 }
-
-declare module 'mightyiframeintegrator' {
-    export function initSidebar(params: InitSidebarParams): void;
-  }
-
-  declare global {
-    interface Window {
-      initSidebar: (params: InitSidebarParams) => void;
-    }
-  }
-  
-  export {};

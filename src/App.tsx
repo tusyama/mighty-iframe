@@ -1,8 +1,6 @@
-import { useEffect, useState, version } from 'react'
-// import reactLogo from './assets/react.svg'
+import { useState, version } from 'react'
 import wirexLogo from './assets/wirex.png'
 import superChainLogo from './assets/superchain.png';
-// import viteLogo from '/vite.svg'
 
 import './App.css'
 import { SizedBox } from './sizedBox'
@@ -12,21 +10,21 @@ function App() {
   const [count, setCount] = useState(0);
   const [changedPage, setChangedPage] = useState(false);
 
-  useEffect(() => {
-    if (window.initSidebar) {
-      window.initSidebar({selector: '#learnButton', partnerId: 'Magic_Ball', course: {courseId: '646ceccd9d546b90065bcac0', chapterId: '646cedd19d546b90065bcad8', lessonId: '646cee099d546b90065bcadf'}, percent: "80%"});
-      window.initSidebar({selector: '#errorButton', partnerId: 'Magic_Ball12', percent: "70%"});
-      window.initSidebar({selector: '#wirex', partnerId:'Wirex', percent: "90%"});
-      window.initSidebar({selector: '#wirexSmall', partnerId:'Wirex'});
-      window.initSidebar({selector: '#superchain', partnerId: 'Superchain',percent: "70%"});
-      window.initSidebar({selector: '#superchainSmall', partnerId: 'Superchain',});
-      window.initSidebar({selector: '#harvestButton', partnerId: 'Harvest_Labs', percent: "60%"});
-      window.initSidebar({selector: '#mindButton', partnerId:'Mintpad', percent: "65%"});
-      window.initSidebar({selector: '#mindButtonDark', partnerId:'Mintpad', theme: 'dark'});
-      window.initSidebar({selector: '#mindButtonLight', partnerId:'Mintpad', theme: 'light'});
-      window.initSidebar({selector: '#mindButtonLightTest', partnerId:'Mintpad', theme: 'light'});
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (window.initSidebar) {
+  //     window.initSidebar({selector: '#learnButton', partnerId: 'Magic_Ball', course: {courseId: '646ceccd9d546b90065bcac0', chapterId: '646cedd19d546b90065bcad8', lessonId: '646cee099d546b90065bcadf'}, percent: "80%"});
+  //     window.initSidebar({selector: '#errorButton', partnerId: 'Magic_Ball12', percent: "70%"});
+  //     window.initSidebar({selector: '#wirex', partnerId:'Wirex', percent: "90%"});
+  //     window.initSidebar({selector: '#wirexSmall', partnerId:'Wirex'});
+  //     window.initSidebar({selector: '#superchain', partnerId: 'Superchain',percent: "70%"});
+  //     window.initSidebar({selector: '#superchainSmall', partnerId: 'Superchain',});
+  //     window.initSidebar({selector: '#harvestButton', partnerId: 'Harvest_Labs', percent: "60%"});
+  //     window.initSidebar({selector: '#mindButton', partnerId:'Mintpad', percent: "65%"});
+  //     window.initSidebar({selector: '#mindButtonDark', partnerId:'Mintpad', theme: 'dark'});
+  //     window.initSidebar({selector: '#mindButtonLight', partnerId:'Mintpad', theme: 'light'});
+  //     window.initSidebar({selector: '#mindButtonLightTest', partnerId:'Mintpad', theme: 'light'});
+  //   }
+  // }, []);
 
   if (changedPage) {
     return <>
@@ -37,7 +35,10 @@ function App() {
   return (
     <>
       <div>
-          <span className='logo wirex' id='wirexSmall'><img src={wirexLogo} className="logo" alt="wirex logo" /></span>
+          <span className='logo wirex' id='wirexSmall'>
+            {/* @ts-ignore */}
+            <mighty-widget partnerId="Wirex" percent="90%"><img src={wirexLogo} className="logo" alt="wirex logo" /></mighty-widget>
+          </span>
           <span className='logo wirex' id='wirex'><img src={wirexLogo} className="logo" alt="wirex logo" /></span>
           <span className='logo superchain' id='superchain'><img src={superChainLogo} className="logo react" alt="superchain logo" /></span>
           <span className='logo superchain' id='superchainSmall'><img src={superChainLogo} className="logo react" alt="superchain logo" /></span>

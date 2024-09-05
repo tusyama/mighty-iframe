@@ -1,14 +1,13 @@
-import { useEffect } from "react";
 import { SizedBox } from "./sizedBox"
 
 export const NewPage = () => {
-    useEffect(() => {
-        if (window.initSidebar) {
-          window.initSidebar({selector: '#learnButton', partnerId: 'Magic_Ball', course: {courseId: '646ceccd9d546b90065bcac0', chapterId: '646cedd19d546b90065bcad8', lessonId: '646cee099d546b90065bcadf'}});
-          window.initSidebar({selector: '#errorButton', partnerId: 'Magic_Ball12'});
-          // window.initSidebar({selector: '#mindButtonLightTest', partnerId:'Mintpad', theme: 'light'});
-        }
-      }, []);
+    // useEffect(() => {
+    //     if (window.initSidebar) {
+    //       // window.initSidebar({selector: '#learnButton', partnerId: 'Magic_Ball', course: {courseId: '646ceccd9d546b90065bcac0', chapterId: '646cedd19d546b90065bcad8', lessonId: '646cee099d546b90065bcadf'}});
+    //       // window.initSidebar({selector: '#errorButton', partnerId: 'Magic_Ball12'});
+    //       // window.initSidebar({selector: '#mindButtonLightTest', partnerId:'Mintpad', theme: 'light'});
+    //     }
+    //   }, []);
     return <div>
         <h1>Tets Page</h1>
         
