@@ -52,12 +52,28 @@ class MightyPage extends HTMLElement {
     iframe.style.display = 'block';
 
     let src = `${this.baseUrl}/space/${partnerId}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
+    const haveACourse = course !== null && course?.courseId !== null;
+    
     if (targetUrl) {
       const course = this.sidebarInstance.parseCourseFromUrl(this.targetUrl);
-      if (course) {
-
-      }
       src = `${targetUrl}?partnerID=${partnerId}${themeParams}`;
+
+      let src = `${this.baseUrl}/space/${partnerId}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
+
+      if (haveACourse) {
+        src = `${this.baseUrl}/courses/${course.courseId}`;
+      
+        if (course.chapterId !== null) {
+          src += `/${course.chapterId}`;
+        }
+      
+        if (course.lessonId !== null) {
+          src += `/${course.lessonId}`;
+        }
+      
+        src += `?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
+      }
+  
     }
 
     iframe.src = src;

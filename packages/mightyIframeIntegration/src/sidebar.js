@@ -196,13 +196,26 @@ export class Sidebar {
   createAndOpenSidebar(partnerId, course = null, theme = null, percent) {
     this.percent = percent ? percent : '40%';
     const { sidebar, iframe } = this.createSidebar(percent);
-    const haveACourse = course !== null && course?.courseId !== null && course?.chapterId !== null && course?.lessonId !== null;
+    const haveACourse = course !== null && course?.courseId !== null;
     const currentTheme = theme == null ? getTheme() : theme;
     const themeParams = currentTheme ? `&theme=${currentTheme}` : '&'
+
     let src = `${this.baseUrl}/space/${partnerId}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
+
     if (haveACourse) {
-      src = `${this.baseUrl}/courses/${course.courseId}/${course.chapterId}/${course.lessonId}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
+      src = `${this.baseUrl}/courses/${course.courseId}`;
+    
+      if (course.chapterId !== null) {
+        src += `/${course.chapterId}`;
+      }
+    
+      if (course.lessonId !== null) {
+        src += `/${course.lessonId}`;
+      }
+    
+      src += `?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
     }
+
     iframe.src = src;
     document.body.appendChild(sidebar);
     setTimeout(() => {
