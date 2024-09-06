@@ -4,7 +4,6 @@ import superChainLogo from './assets/superchain.png';
 
 import './App.css'
 import { SizedBox } from './sizedBox'
-import { NewPage } from './newPage';
 
 import { MightyWidget, MightyPage } from 'mightyiframeintegration';
 
@@ -31,7 +30,7 @@ function App() {
   if (changedPage) {
     return <>
       <button onClick={() => setChangedPage(false)}>Change page</button>
-      <MightyPage partnerId="Wirex"/>
+      <MightyPage partnerId="Superchain" targetUrl='https://test.mighty.study/courses/669a8e515007186b0e7aff9c'/>
       </>
   }
 

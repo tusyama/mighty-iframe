@@ -50,13 +50,11 @@ class MightyPage extends HTMLElement {
     iframe.height = '100%';
     iframe.style.border = 'none';
     iframe.style.display = 'block';
-
-    let src = `${this.baseUrl}/space/${partnerId}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
-    const haveACourse = course !== null && course?.courseId !== null;
-    
+    console.log(targetUrl);
     if (targetUrl) {
       const course = this.sidebarInstance.parseCourseFromUrl(this.targetUrl);
-      src = `${targetUrl}?partnerID=${partnerId}${themeParams}`;
+      console.log(course);  
+      const haveACourse = course !== null && course?.courseId !== null;
 
       let src = `${this.baseUrl}/space/${partnerId}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
 
@@ -73,10 +71,10 @@ class MightyPage extends HTMLElement {
       
         src += `?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
       }
-  
+      console.log(src);
+      iframe.src = src;
     }
 
-    iframe.src = src;
 
     this.appendChild(iframe);
     this.iframe = iframe;
