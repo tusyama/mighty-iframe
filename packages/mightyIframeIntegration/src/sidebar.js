@@ -196,19 +196,69 @@ export class Sidebar {
   createAndOpenSidebar(partnerId, course = null, theme = null, percent) {
     this.percent = percent ? percent : '40%';
     const { sidebar, iframe } = this.createSidebar(percent);
-    const haveACourse = course !== null && course?.courseId !== null && course?.chapterId !== null && course?.lessonId !== null;
+    const haveACourse = course !== null && course?.courseId !== null;
     const currentTheme = theme == null ? getTheme() : theme;
     const themeParams = currentTheme ? `&theme=${currentTheme}` : '&'
+
     let src = `${this.baseUrl}/space/${partnerId}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
+
     if (haveACourse) {
-      src = `${this.baseUrl}/courses/${course.courseId}/${course.chapterId}/${course.lessonId}?partnerID=${partnerId}${themeParams}`;
+      src = `${this.baseUrl}/courses/${course.courseId}`;
+    
+      if (course.chapterId !== null) {
+        src += `/${course.chapterId}`;
+      }
+    
+      if (course.lessonId !== null) {
+        src += `/${course.lessonId}`;
+      }
+    
+      src += `?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
     }
+
     iframe.src = src;
     document.body.appendChild(sidebar);
     setTimeout(() => {
       sidebar.classList.add('mighty-sidebar-open'); // Animation for new sidebar
     }, 10); // Small delay to apply initial state
     this.currentSidebar = sidebar;
+  }
+
+  parseCourseFromUrl(url) {
+    if (!url) {
+      return null;
+    }
+
+    const courseIndex = url.indexOf('/courses/');
+    if (courseIndex === -1) {
+      return null;
+    }
+
+    const coursePart = url.slice(courseIndex + 9);
+    const parts = coursePart.split('/').filter(Boolean);
+
+    const course = {
+      courseId: null,
+      chapterId: null,
+      lessonId: null
+    };
+
+    if (parts.length >= 3) {
+      course.lessonId = parts[parts.length - 1];
+      course.chapterId = parts[parts.length - 2];
+      course.courseId = parts[parts.length - 3];
+    } else if (parts.length === 2) {
+      course.chapterId = parts[parts.length - 1];
+      course.courseId = parts[parts.length - 2];
+    } else if (parts.length === 1) {
+      course.courseId = parts[parts.length - 1];
+    }
+
+    if (!course.courseId && !course.chapterId && !course.lessonId) {
+      return null;
+    }
+
+    return course;
   }
 
   initSidebar(selector, partnerId, course, theme, percentW) {
@@ -289,4 +339,3 @@ export class Sidebar {
     });
   }
 }
-

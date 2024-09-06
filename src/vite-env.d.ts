@@ -14,14 +14,13 @@ export interface MightyStudyCourse {
   lessonId: string;
 }
 
-declare module 'mightyiframeintegrator' {
-    export function initSidebar(params: InitSidebarParams): void;
-  }
-
-  declare global {
-    interface Window {
-      initSidebar: (params: InitSidebarParams) => void;
-    }
-  }
-  
-  export {};
+// declare namespace JSX {
+//   interface IntrinsicElements {
+//     'mighty-widget': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+//       partnerId?: string;
+//       targetUrl?: string;
+//       percent?: string;
+//       theme?: string;
+//     };
+//   }
+// }

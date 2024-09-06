@@ -1,4 +1,6 @@
+import { registerMightyWidget } from "./web/migtyWidget";
 import { Sidebar } from "./sidebar";
+import { registerMightyPage } from "./web/mightyPage";
 
 let isAuthorized = true;
 // let partnerId = null;
@@ -12,6 +14,10 @@ function authorizePackage(theme = 'dark') {
   const initSidebar = ({ selector, partnerId, course, theme, percent }) => sidebar.initSidebar(selector, partnerId, course, theme, percent);
   
   window.initSidebar = initSidebar;
+  window.mightySidebar = sidebar;
+
+  registerMightyWidget();
+  registerMightyPage();
 }
 
 function checkAuthorization() {
