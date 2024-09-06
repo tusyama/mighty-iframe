@@ -1,6 +1,8 @@
+import React from "react";
+
 interface MightyWidgetProps {
     partnerId: string;
-    targetUrl: string;
+    targetUrl?: string;
     percent?: string;
     theme?: string;
     children?: React.ReactNode;

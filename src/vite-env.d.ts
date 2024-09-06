@@ -13,3 +13,14 @@ export interface MightyStudyCourse {
   chapterId: string;
   lessonId: string;
 }
+
+// declare namespace JSX {
+//   interface IntrinsicElements {
+//     'mighty-widget': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+//       partnerId?: string;
+//       targetUrl?: string;
+//       percent?: string;
+//       theme?: string;
+//     };
+//   }
+// }
