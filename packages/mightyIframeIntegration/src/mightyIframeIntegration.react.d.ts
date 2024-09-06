@@ -15,6 +15,15 @@ declare module 'mightyiframeintegration' {
   }
 
   export const MightyWrapper: React.FC<MightyWrapperProps>;
+
+  export interface MightyPageProps {
+    partnerId: string;
+    targetUrl?: string;
+    theme?: string;
+  }
+
+  export const MightyPage: React.FC<MightyPageProps>
+  
 }
 
 declare namespace JSX {
@@ -23,6 +32,11 @@ declare namespace JSX {
       partnerId?: string;
       targetUrl?: string;
       percent?: string;
+      theme?: string;
+    };
+    'mighty-page': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+      partnerId?: string;
+      targetUrl?: string;
       theme?: string;
     };
   }

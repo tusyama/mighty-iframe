@@ -6,7 +6,7 @@ import './App.css'
 import { SizedBox } from './sizedBox'
 import { NewPage } from './newPage';
 
-import { MightyWidget } from 'mightyiframeintegration';
+import { MightyWidget, MightyPage } from 'mightyiframeintegration';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -31,7 +31,8 @@ function App() {
   if (changedPage) {
     return <>
       <button onClick={() => setChangedPage(false)}>Change page</button>
-      <NewPage /></>
+      <MightyPage partnerId="Wirex"/>
+      </>
   }
 
   return (

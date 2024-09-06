@@ -201,7 +201,7 @@ export class Sidebar {
     const themeParams = currentTheme ? `&theme=${currentTheme}` : '&'
     let src = `${this.baseUrl}/space/${partnerId}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
     if (haveACourse) {
-      src = `${this.baseUrl}/courses/${course.courseId}/${course.chapterId}/${course.lessonId}?partnerID=${partnerId}${themeParams}`;
+      src = `${this.baseUrl}/courses/${course.courseId}/${course.chapterId}/${course.lessonId}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
     }
     iframe.src = src;
     document.body.appendChild(sidebar);
