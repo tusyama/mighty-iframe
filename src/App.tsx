@@ -10,7 +10,7 @@ import WidgetSetup from './Constructor';
 
 function App() {
   const [count, setCount] = useState(0);
-  const [changedPage, setChangedPage] = useState('index');
+  const [changedPage, setChangedPage] = useState('constructor');
 
   // useEffect(() => {
   //   if (window.initSidebar) {
