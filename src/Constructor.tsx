@@ -39,7 +39,7 @@ const WidgetSetup = () => {
         ? `import React from 'react';\nimport ReactDOM from 'react-dom';\nimport App from './App.tsx';\nimport './index.css';\nimport { MightyWrapper } from 'mightyiframeintegration';\n\nReactDOM.render(\n  <React.StrictMode>\n    <MightyWrapper theme="${mode}">\n      <App />\n    </MightyWrapper>\n  </React.StrictMode>,\n  document.getElementById('root')\n);`
         : '';
     return (
-        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
+        <div style={{ maxWidth: '800px', margin: '0', padding: '20px', textAlign: 'start' }}>
             <h1>Setup on your website in 5 minutes</h1>
 
             <div className="form-group">
