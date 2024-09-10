@@ -6,10 +6,11 @@ import './App.css'
 import { SizedBox } from './sizedBox'
 
 import { MightyWidget, MightyPage } from 'mightyiframeintegration';
+import WidgetSetup from './Constructor';
 
 function App() {
   const [count, setCount] = useState(0);
-  const [changedPage, setChangedPage] = useState(false);
+  const [changedPage, setChangedPage] = useState('index');
 
   // useEffect(() => {
   //   if (window.initSidebar) {
@@ -27,11 +28,22 @@ function App() {
   //   }
   // }, []);
 
-  if (changedPage) {
+  if (changedPage === "second") {
     return <>
-      <button onClick={() => setChangedPage(false)}>Change page</button>
+      <button onClick={() => setChangedPage('index')}>main page</button>
+      <button onClick={() => setChangedPage('constructor')}>constructor page</button>
       <MightyPage partnerId="Superchain" targetUrl='https://test.mighty.study/courses/669a8e515007186b0e7aff9c'/>
       </>
+  }
+
+  if (changedPage === "constructor") {
+    return <>
+     <button onClick={() => setChangedPage('index')}>main page</button>
+     <button onClick={() => setChangedPage('second')}>second page</button>
+
+
+     <WidgetSetup></WidgetSetup>
+    </>
   }
 
   return (
@@ -57,7 +69,8 @@ function App() {
         </span>
       </div>
       <h1>Vite + React {version}</h1>
-      <button onClick={() => setChangedPage(true)}>Change page</button>
+      <button onClick={() => setChangedPage('second')}>second page</button>
+      <button onClick={() => setChangedPage('constructor')}>constructor page</button>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}

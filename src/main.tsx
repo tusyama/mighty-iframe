@@ -6,7 +6,7 @@ import { MightyWrapper } from 'mightyiframeintegration';
 
 ReactDOM.render(
   <React.StrictMode>
-    <MightyWrapper>
+    <MightyWrapper theme='dark'>
       <App />
     </MightyWrapper>
   </React.StrictMode>,
