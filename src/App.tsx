@@ -1,14 +1,12 @@
 import { useState, version } from 'react'
 import wirexLogo from './assets/wirex.png'
 import superChainLogo from './assets/superchain.png';
-import reactIcon from './assets/react.svg'
 
 import './App.css'
 import { SizedBox } from './sizedBox'
 
 import { MightyWidget, MightyPage } from 'mightyiframeintegration';
 import WidgetSetup from './Constructor';
-import PartnerLoader from './components/loader';
 
 function App() {
   const [count, setCount] = useState(0);
