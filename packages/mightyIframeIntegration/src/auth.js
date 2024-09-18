@@ -6,9 +6,8 @@ let isAuthorized = true;
 // let partnerId = null;
 let themeMighty = 'dark';
 
-function authorizePackage(theme = 'dark') {
+function authorizePackage() {
   isAuthorized = true;
-  themeMighty = theme;
 
   const sidebar = new Sidebar();
   const initSidebar = ({ selector, partnerId, course, theme, percent }) => sidebar.initSidebar(selector, partnerId, course, theme, percent);

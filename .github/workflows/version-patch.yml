@@ -1,0 +1,35 @@
+# name: Version Patch on Tag
+
+# on:
+#   push:
+#     tags:
+#       - '*'
+
+# jobs:
+#   version_patch:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v3
+
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: '18'
+
+#       - name: Install dependencies
+#         run: npm install
+#         working-directory: ./packages/mightyIframeIntegration
+
+#       - name: Run version patch
+#         run: npm run version:patch
+#         working-directory: ./packages/mightyIframeIntegration
+
+#       - name: Push version changes
+#         run: |
+#           git config user.name "github-actions[bot]"
+#           git config user.email "github-actions[bot]@users.noreply.github.com"
+#           git commit -am "Version bump by GitHub Action"
+#           git push origin HEAD
+#         working-directory: ./packages/mightyIframeIntegration
