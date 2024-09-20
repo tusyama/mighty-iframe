@@ -39,6 +39,16 @@ export class Sidebar {
         transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
       }
 
+      #${this.mightySidebarId}.light {
+        background: radial-gradient(73.04% 270.4% at 142.59% 81.5%, rgba(98, 126, 234, 0.2) 0%, rgba(0, 0, 0, 0.02) 97.05%), rgb(255, 255, 255);;
+        color: #111111;
+      }
+
+
+      #${this.mightySidebarId}.light div {
+        color: #111111;
+      }
+
       #${this.mightySidebarId}.mighty-sidebar-expanded {
         width: 100%;
       }
@@ -220,6 +230,9 @@ export class Sidebar {
     document.body.appendChild(sidebar);
     setTimeout(() => {
       sidebar.classList.add('mighty-sidebar-open'); // Animation for new sidebar
+      if (theme) {
+        sidebar.classList.add(theme)
+      }
     }, 10); // Small delay to apply initial state
     this.currentSidebar = sidebar;
   }
