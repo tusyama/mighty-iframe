@@ -300,11 +300,6 @@ export class Loader {
   }
 
   closeLoader(loaderContainer) {
-    // const loader = document.getElementById(this.loaderId);
-    // if (!loader) {
-        // return;
-    // }
-    console.log('closing loader2');
     loaderContainer.addEventListener('animationend', () => {
         loaderContainer.remove();
     })
@@ -316,7 +311,6 @@ export class Loader {
     if (!container) {
         return;
     }
-    console.log(1)
     // define animation elements
     const loaderContainer = document.createElement('div');
     const animationContainer = document.createElement('div');
@@ -381,10 +375,8 @@ export class Loader {
   }
   checkForLoadingEnd(loaderContainer) {
     window.addEventListener('message', (e) => {
-      console.log(e, 'message event');
       if (e.data === 'loaded') {
         this.closeLoader(loaderContainer);
-        console.log('closing loader1')
       } 
     })
   }
