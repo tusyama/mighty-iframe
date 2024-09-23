@@ -308,6 +308,9 @@ export class Loader {
 
   showLoader() {
     const container = document.querySelector(this.pageMode ? 'mighty-page' : '#frame-box');
+    if (document.getElementById(this.loaderId)) {
+        return;
+    }
     if (!container) {
         return;
     }
