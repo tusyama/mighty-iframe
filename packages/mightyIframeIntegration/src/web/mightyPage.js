@@ -82,7 +82,7 @@ class MightyPage extends HTMLElement {
     this.appendChild(iframe);
     this.iframe = iframe;
 
-    const loader = new Loader(this.logoSrc, theme, true)
+    const loader = new Loader(logoSrc, theme, true)
     loader.showLoader();
   }
 }
