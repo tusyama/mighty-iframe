@@ -1,9 +1,10 @@
 export class Loader {
-  constructor(logoSrc, theme) {
+  constructor(logoSrc, theme, pageMode) {
     this.theme = theme || 'dark';
     this.logoSrc = logoSrc || "";
     this.loaderStyleId = "partner-loader-style";
     this.loaderId = 'partner-loader';
+    this.pageMode = pageMode || false;
   }
 
   addStyles() {
@@ -14,7 +15,7 @@ export class Loader {
     style.id = this.loaderStyleId;
     style.textContent = `
             .container {
-  position: absolute;
+  position: ${this.pageMode ? 'fixed' : 'absolute'};
   top: 0;
   left: 0;
   width: 100%;
@@ -311,7 +312,7 @@ export class Loader {
   }
 
   showLoader() {
-    const container = document.getElementById('frame-box');
+    const container = document.querySelector(this.pageMode ? 'mighty-page' : '#frame-box');
     if (!container) {
         return;
     }

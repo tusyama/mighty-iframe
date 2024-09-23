@@ -72,7 +72,7 @@ class MightyPage extends HTMLElement {
           src += `/${course.lessonId}`;
         }
       
-        src += `?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}&logoSrc=${logoSrc}`;
+        src += `?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
       }
       console.log(src);
       iframe.src = src;
@@ -81,6 +81,9 @@ class MightyPage extends HTMLElement {
 
     this.appendChild(iframe);
     this.iframe = iframe;
+
+    const loader = new Loader(this.logoSrc, theme, true)
+    loader.showLoader();
   }
 }
 
