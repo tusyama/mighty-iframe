@@ -3,7 +3,7 @@ import { Sidebar } from "../sidebar";
 
 class MightyWidget extends HTMLElement {
   static get observedAttributes() {
-    return ['partnerid', 'targeturl', 'percent', 'theme'];
+    return ['partnerid', 'targeturl', 'percent', 'theme', 'logoSrc'];
   }
     constructor() {
       super();
@@ -11,6 +11,7 @@ class MightyWidget extends HTMLElement {
       this.targetUrl = this.getAttribute('targeturl') || null;
       this.percent = this.getAttribute('percent') || '40%';
       this.theme = this.getAttribute('theme') || getTheme();
+      this.logoSrc = this.getAttribute('logoSrc') || '';
       this.sidebarInstance = window.mightySidebar;
 
 
@@ -44,6 +45,7 @@ class MightyWidget extends HTMLElement {
       this.targetUrl = this.getAttribute('targeturl') || null;
       this.percent = this.getAttribute('percent') || '40%';
       this.theme = this.getAttribute('theme') || getTheme();
+      this.logoSrc = this.getAttribute('logoSrc') || '';
     }
   
     handleClick() {
@@ -59,7 +61,7 @@ class MightyWidget extends HTMLElement {
       }
   
       const course = this.sidebarInstance.parseCourseFromUrl(this.targetUrl);
-      this.sidebarInstance.openSidebar(this.partnerId, course, this.theme, this.percent);
+      this.sidebarInstance.openSidebar(this.partnerId, course, this.theme, this.percent, this.logoSrc);
     }
   }
   

@@ -1,4 +1,5 @@
 import { checkAuthorization, getTheme } from './auth';
+import { Loader } from './loader';
 
 export class Sidebar {
   constructor() {
@@ -7,9 +8,10 @@ export class Sidebar {
     this.setTriggers = new Set();
     this.mightySidebarId = 'mighty-course-sidebar';
     this.mightyStyleId = 'mighty-sidebar-styles';
-    this.baseUrl = 'https://test.mighty.study';
+    this.baseUrl = 'http://test.mighty.study';
     this.partnerKey = '099d94c60458dd7429e95eaca9cb622c9246a17a7e35d8859284051c48b3fd11';
     this.sidebarMapTriggers = {};
+    this.logoSrc = '';
     this.addStyles();
     this.initObserverWhenReady();
 
@@ -83,6 +85,11 @@ export class Sidebar {
       #${this.mightySidebarId} .mighty-sidebar-button:hover {
         background: rgba(255, 255, 255, 0.15);
       }
+      #${this.mightySidebarId} .frame-box {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
       #${this.mightySidebarId} iframe {
         width: 100%;
         height: 100%;
@@ -118,12 +125,14 @@ export class Sidebar {
     // }
 
     const header = document.createElement('div');
+    const frameBox = document.createElement('div');
     header.classList.add('mighty-header-sidebar');
     header.style.display = 'flex';
     header.style.justifyContent = 'flex-start';
     header.style.alignItems = 'center';
     header.style.padding = '10px';
-
+    frameBox.classList.add('frame-box');
+    frameBox.setAttribute("id", 'frame-box');
     // Создание кнопки
     const createButton = (svgContent, onClick, additionalClass) => {
       const button = document.createElement('div');
@@ -160,7 +169,8 @@ export class Sidebar {
     sidebar.appendChild(header);
 
     const iframe = document.createElement('iframe');
-    sidebar.appendChild(iframe);
+    frameBox.appendChild(iframe);
+    sidebar.appendChild(frameBox);
 
     return { sidebar, iframe };
   }
@@ -193,17 +203,17 @@ export class Sidebar {
     });
   }
 
-  openSidebar(partnerId, course, theme, percent) {
+  openSidebar(partnerId, course, theme, percent, logoSrc) {
     if (this.currentSidebar) {
       this.closeSidebar(this.currentSidebar).then(() => {
-        this.createAndOpenSidebar(partnerId, course, theme, percent);
+        this.createAndOpenSidebar(partnerId, course, theme, percent, logoSrc);
       });
     } else {
-      this.createAndOpenSidebar(partnerId, course, theme, percent);
+      this.createAndOpenSidebar(partnerId, course, theme, percent, logoSrc);
     }
   }
 
-  createAndOpenSidebar(partnerId, course = null, theme = null, percent) {
+  createAndOpenSidebar(partnerId, course = null, theme = null, percent, logoSrc = '') {
     this.percent = percent ? percent : '40%';
     const { sidebar, iframe } = this.createSidebar(percent);
     const haveACourse = course !== null && course?.courseId !== null;
@@ -222,7 +232,7 @@ export class Sidebar {
       if (course.lessonId !== null) {
         src += `/${course.lessonId}`;
       }
-    
+      
       src += `?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
     }
 
@@ -235,6 +245,8 @@ export class Sidebar {
       }
     }, 10); // Small delay to apply initial state
     this.currentSidebar = sidebar;
+    const loader = new Loader(logoSrc, theme);
+    loader.showLoader();
   }
 
   parseCourseFromUrl(url) {
@@ -274,7 +286,7 @@ export class Sidebar {
     return course;
   }
 
-  initSidebar(selector, partnerId, course, theme, percentW) {
+  initSidebar(selector, partnerId, course, theme, percentW, logoSrc) {
     if (!checkAuthorization()) {
       console.error('Package not authorized. Please provide a valid partnerId.');
       return;
@@ -293,11 +305,11 @@ export class Sidebar {
       }
 
       const handler = () => {
-        this.openSidebar(partnerId, course, theme, percent);
+        this.openSidebar(partnerId, course, theme, percent, logoSrc);
       };
 
       element.addEventListener("click", handler);
-      this.initializedTriggers.set(selector, { element, handler, partnerId, course, theme, percent });
+      this.initializedTriggers.set(selector, { element, handler, partnerId, course, theme, percent, logoSrc });
     } else {
       console.error(`Element with selector "${selector}" not found.`);
     }
@@ -347,7 +359,7 @@ export class Sidebar {
   reinitializeTriggers(element) {
     this.setTriggers.forEach((trigger, selector) => {
       if (element.matches(selector) || element.querySelector(selector)) {
-        this.initSidebar(selector, this.sidebarMapTriggers[selector].partnerId, this.sidebarMapTriggers[selector].course, this.sidebarMapTriggers[selector].theme, this.sidebarMapTriggers[selector].percent);
+        this.initSidebar(selector, this.sidebarMapTriggers[selector].partnerId, this.sidebarMapTriggers[selector].course, this.sidebarMapTriggers[selector].theme, this.sidebarMapTriggers[selector].percent, this.sidebarMapTriggers[selector].logoSrc);
       }
     });
   }
