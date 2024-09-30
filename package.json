@@ -1,6 +1,6 @@
 {
-  "name": "mightyiframeintegration",
-  "version": "1.3.44",
+  "name": "mighty-iframe",
+  "version": "1.4.0",
   "description": "A sidebar widget for embedding mighty courses in iframes.",
   "main": "dist/mightyIframeIntegration.js",
   "types": "dist/mightyIframeIntegration.react.d.ts",
@@ -38,5 +38,13 @@
   },
   "dependencies": {
     "mightyiframeintegration": "^1.3.10"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hexane911/mighty-iframe.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hexane911/mighty-iframe/issues"
+  },
+  "homepage": "https://github.com/hexane911/mighty-iframe#readme"
 }

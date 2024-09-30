@@ -16,6 +16,7 @@ const MightyWidget: React.FC<MightyWidgetProps> = ({ partnerId, targetUrl, perce
         targetUrl={targetUrl}
         percent={percent}
         theme={theme}
+        logoSrc={logoSrc}
     >
         {children}
     </mighty-widget>

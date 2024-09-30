@@ -5,6 +5,7 @@ declare module 'mightyiframeintegration' {
     percent?: string;
     theme?: string;
     children?: React.ReactNode;
+    logoSrc?: string;
   }
 
   export const MightyWidget: React.FC<MightyWidgetProps>;
@@ -33,11 +34,13 @@ declare namespace JSX {
       targetUrl?: string;
       percent?: string;
       theme?: string;
+      logoSrc?: string;
     };
     'mighty-page': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
       partnerId?: string;
       targetUrl?: string;
       theme?: string;
+      logoSrc?: string;
     };
   }
 }
