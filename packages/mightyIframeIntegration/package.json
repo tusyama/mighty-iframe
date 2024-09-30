@@ -1,6 +1,6 @@
 {
   "name": "mightyiframeintegration",
-  "version": "1.3.46",
+  "version": "1.4.0",
   "description": "A sidebar widget for embedding mighty courses in iframes.",
   "main": "dist/mightyIframeIntegration.js",
   "types": "dist/mightyIframeIntegration.react.d.ts",
