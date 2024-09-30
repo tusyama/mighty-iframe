@@ -1,16 +1,16 @@
-# MightyIframeIntegration
+# mighty-iframe
 
-The `MightyIframeIntegration` package allows you to integrate an iframe-based sidebar into your web application. This sidebar can be triggered by any element on your page and supports both desktop and mobile views.
+The `mighty-iframe` package allows you to integrate an iframe-based sidebar into your web application. This sidebar can be triggered by any element on your page and supports both desktop and mobile views.
 
 ## Installation
-To use the `MightyIframeIntegration` package, include the following script in your HTML file:
+To use the `mighty-iframe` package, include the following script in your HTML file:
 
 ## 1. Installation via npm (for React)
 
 If you are using React, you can install the package via npm:
 
 ```bash
-npm install mightyiframeintegration
+npm install mighty-iframe
 ```
 
 Once installed, you can use React components like MightyWidget and MightyPage. Note: All widgets must be wrapped in MightyWrapper for proper initialization.
@@ -26,7 +26,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App.tsx';
 import './index.css';
-import { MightyWrapper } from 'mightyiframeintegration';
+import { MightyWrapper } from 'mighty-iframe';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -48,12 +48,12 @@ Example usage:
 
 ```JSX
 import React from 'react';
-import { MightyWidget } from 'mightyiframeintegration';
+import { MightyWidget } from 'mighty-iframe';
 
 const App = () => {
   return (
     <div>
-      <MightyWidget partnerId="Magic_Ball" targetUrl="https://app.mighty.study/courses/123/456/789" theme="light">
+      <MightyWidget partnerId="Magic_Ball" targetUrl="https://app.mighty.study/courses/123/456/789" theme="light" logoSrc="https://images.com/some-image.jpeg">
         <button>Click to Learn</button>
       </MightyWidget>
     </div>
@@ -69,6 +69,7 @@ Parameters:
 * targetUrl (optional): The URL of the course to display.
 * percent (optional): The width percentage for displaying the sidebar.
 * theme (optional): The theme for displaying the widget (dark or light).
+* logoSrc: Your logo to display while loading content.
 
 ### 2. MightyPage
 
@@ -78,12 +79,12 @@ Example usage:
 
 ```JSX
 import React from 'react';
-import { MightyPage } from 'mightyiframeintegration';
+import { MightyPage } from 'mighty-iframe';
 
 const App = () => {
   return (
     <div style={{ width: '100%', height: '100vh' }}>
-      <MightyPage partnerId="Magic_Ball" targetUrl="https://app.mighty.study/courses/123/456/789" theme="dark" />
+      <MightyPage partnerId="Magic_Ball" targetUrl="https://app.mighty.study/courses/123/456/789" theme="dark" logoSrc="https://images.com/some-image.jpeg"/>
     </div>
   );
 };
@@ -96,6 +97,7 @@ Parameters:
 * partnerId (required): The partner ID for displaying content.
 * targetUrl (optional): The URL of the course to display.
 * theme (optional): The theme for displaying the widget (dark or light).
+* logoSrc: Your logo to display while loading content.
 
 ## 2. Installation via CDN (for web components)
 
@@ -103,7 +105,7 @@ If you are not using React and want to use web components directly in HTML, you 
 
 ```html
 <head>
-  <script src="https://unpkg.com/mightyiframeintegration@latest/dist/mightyIframeIntegration.js"></script>
+  <script src="https://unpkg.com/mighty-iframe@latest/dist/mightyIframeIntegration.js"></script>
 </head>
 ```
 
@@ -116,7 +118,7 @@ You must call the authorizePackage function to initialize the package:
 ```html
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    mightyIframeIntegration.authorizePackage('dark'); // Initialize the package with a theme
+    mighty-iframe.authorizePackage('dark'); // Initialize the package with a theme
   });
 </script>
 ```
@@ -135,15 +137,15 @@ Example usage:
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://unpkg.com/mightyiframeintegration@latest/dist/mightyIframeIntegration.js"></script>
+  <script src="https://unpkg.com/mighty-iframe@latest/dist/mightyIframeIntegration.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      mightyIframeIntegration.authorizePackage('dark');
+      mighty-iframe.authorizePackage('dark');
     });
   </script>
 </head>
 <body>
-  <mighty-widget partnerid="Magic_Ball" targeturl="https://app.mighty.study/courses/123/456/789" theme="light">
+  <mighty-widget partnerid="Magic_Ball" targeturl="https://app.mighty.study/courses/123/456/789" theme="light" logoSrc="https://images.com/some-image.jpeg">
     <button>Click to Learn</button>
   </mighty-widget>
 </body>
@@ -155,6 +157,7 @@ Example usage:
 * targeturl (optional): The URL of the course to display.
 * percent (optional): The width percentage for displaying the sidebar.
 * theme (optional): The theme for displaying the widget (dark or light).
+* logoSrc: Your logo to display while loading content.
 
 ### 2. mighty-page
 
@@ -169,15 +172,15 @@ Example usage:
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://unpkg.com/mightyiframeintegration@latest/dist/mightyIframeIntegration.js"></script>
+  <script src="https://unpkg.com/mighty-iframe@latest/dist/mightyIframeIntegration.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      mightyIframeIntegration.authorizePackage('dark');
+      mighty-iframe.authorizePackage('dark');
     });
   </script>
 </head>
 <body>
-  <mighty-page partnerid="Magic_Ball" targeturl="https://app.mighty.study/courses/123/456/789" theme="dark" style="width: 100%; height: 100vh;">
+  <mighty-page partnerid="Magic_Ball" targeturl="https://app.mighty.study/courses/123/456/789" theme="dark" style="width: 100%; height: 100vh;" logoSrc="https://images.com/ome-image.jpeg">
   </mighty-page>
 </body>
 </html>
@@ -187,7 +190,7 @@ Example usage:
 * partnerid (required): The partner ID for displaying content.
 * targeturl (optional): The URL of the course to display.
 * theme (optional): The theme for displaying the widget (dark or light).
-
+* logoSrc: Your logo to display while loading content.
 
 ### Features
 
