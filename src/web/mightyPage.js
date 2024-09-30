@@ -9,7 +9,7 @@ class MightyPage extends HTMLElement {
     this.theme = this.getAttribute('theme') || getTheme();
     this.logoSrc = this.getAttribute('logoSrc') || '';
     this.iframe = null;
-    this.baseUrl = 'http://localhost:3000';
+    this.baseUrl = 'https://test.mighty.study';
     this.partnerKey = '099d94c60458dd7429e95eaca9cb622c9246a17a7e35d8859284051c48b3fd11';
     this.sidebarInstance = window.mightySidebar;
   }
