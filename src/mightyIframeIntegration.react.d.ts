@@ -1,4 +1,4 @@
-declare module 'mightyiframeintegration' {
+declare module 'mighty-iframe' {
   export interface MightyWidgetProps {
     partnerId: string;
     targetUrl?: string;
