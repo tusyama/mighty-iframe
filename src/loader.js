@@ -14,7 +14,7 @@ export class Loader {
     const style = document.createElement("style");
     style.id = this.loaderStyleId;
     style.textContent = `
-            .container {
+           #${this.loaderId}.container {
   position: ${this.pageMode ? 'fixed' : 'absolute'};
   top: 0;
   left: 0;
@@ -29,27 +29,27 @@ export class Loader {
         rgba(0, 0, 0, 0.02) 130%), #1c1d26;
 }
 
-.container.light {
+#${this.loaderId}.container.light {
   background: #fff;
 }
 
-.container * {
+#${this.loaderId}.container * {
   box-sizing: border-box;
 }
 
-.container.closing {
+#${this.loaderId}.container.closing {
     opacity: 0; 
     animation: closing 0.3s;
 }
 
-.center-positioned {
+#${this.loaderId} .center-positioned {
   top: 50%;
   left: 50%;
   translate: -50% -50%;
   position: absolute;
 }
 
-.animation {
+#${this.loaderId} .animation {
   position: absolute;
   border-radius: 50%;
   z-index: 2022;
@@ -59,7 +59,7 @@ export class Loader {
   height: 200px;
 }
 
-.logo-container {
+#${this.loaderId} .logo-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,7 +71,7 @@ export class Loader {
   overflow: hidden;
 }
 
-.logo-container.playing {
+#${this.loaderId} .logo-container.playing {
   animation: logoBoxAnim 2s ease-in-out infinite;
 }
 
@@ -93,7 +93,7 @@ export class Loader {
   }
 }
 
-.logo {
+#${this.loaderId} .partner-logo {
   object-fit: cover;
   max-width: 100%;
   max-height: 100%;
@@ -101,7 +101,7 @@ export class Loader {
   padding: none !important;
 }
 
-.bg-round {
+#${this.loaderId} .bg-round {
   border-radius: 50%;
   border: solid #ffffff10;
   z-index: 2002;
@@ -110,7 +110,7 @@ export class Loader {
   border-width: 34px;
 }
 
-.bg-round.playing {
+#${this.loaderId} .bg-round.playing {
   animation: borderBoxAnim 2s ease infinite;
 }
 
@@ -139,7 +139,7 @@ export class Loader {
   initial-value: 0deg;
 }
 
-.arc {
+#${this.loaderId} .arc {
   --b: 10px; /* the boder thickness */
   --fill-rad: 0deg; /* control the progression */
   opacity: 0.3;
@@ -158,52 +158,52 @@ export class Loader {
     conic-gradient(#000 var(--fill-rad), #0000 0);
 }
 
-.arc-white {
+#${this.loaderId} .arc-white {
   --b: 4px; /* the boder thickness */
   background: linear-gradient(#fff, #fff) !important;
 }
 
-.arc.light {
+#${this.loaderId} .arc.light {
   background: linear-gradient(#1111114d, #1111114d);
 }
 
-.arc-white.light {
+#${this.loaderId} .arc-white.light {
   background: linear-gradient(#111, #111) !important;
 }
 
-.border-box {
+#${this.loaderId} .border-box {
   width: 145%;
   height: 145%;
 }
 
-.border-thick {
+#${this.loaderId} .border-thick {
   width: 100%;
   height: 100%;
   opacity: 0;
 }
 
-.border-thin {
+#${this.loaderId} .border-thin {
   width: 100%;
   height: 100%;
   opacity: 0;
   z-index: 2003;
 }
 
-.border-thin.playing {
+#${this.loaderId} .border-thin.playing {
   animation: borderAnimation 2s ease infinite;
   scale: -0.98 0.98;
 }
 
-.border-thick.playing {
+#${this.loaderId} .border-thick.playing {
   animation: borderAnimation 2s ease infinite;
   scale: -1 1;
 }
 
-.second.playing {
+#${this.loaderId} .second.playing {
   animation-name: secondBorderAnimation !important;
 }
 
-.third.playing {
+#${this.loaderId} .third.playing {
   animation-name: thirdBorderAnimation  !important ;
 }
 
@@ -337,7 +337,7 @@ export class Loader {
     loaderContainer.setAttribute('id', this.loaderId);
     animationContainer.classList.add('animation', 'center-positioned');
     logoContainer.classList.add('logo-container', 'playing');
-    logoImg.classList.add('logo');
+    logoImg.classList.add('partner-logo');
     bgRound.classList.add('bg-round', 'center-positioned', 'playing');
     borderBox.classList.add('border-box','center-positioned')
     borderBox2.classList.add('border-box', 'center-positioned')
