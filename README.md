@@ -118,7 +118,7 @@ You must call the authorizePackage function to initialize the package:
 ```html
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    mighty-iframe.authorizePackage('dark'); // Initialize the package with a theme
+    mightyIframeIntegration.authorizePackage('dark'); // Initialize the package with a theme
   });
 </script>
 ```
@@ -140,7 +140,7 @@ Example usage:
   <script src="https://unpkg.com/mighty-iframe@latest/dist/mightyIframeIntegration.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      mighty-iframe.authorizePackage('dark');
+      mightyIframeIntegration.authorizePackage('dark');
     });
   </script>
 </head>
@@ -175,7 +175,7 @@ Example usage:
   <script src="https://unpkg.com/mighty-iframe@latest/dist/mightyIframeIntegration.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      mighty-iframe.authorizePackage('dark');
+      mightyIframeIntegration.authorizePackage('dark');
     });
   </script>
 </head>
