@@ -38,10 +38,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hexane911/mighty-iframe.git"
+    "url": "git+https://github.com/tusyama/mighty-iframe.git"
   },
   "bugs": {
-    "url": "https://github.com/hexane911/mighty-iframe/issues"
+    "url": "https://github.com/tusyama/mighty-iframe/issues"
   },
-  "homepage": "https://github.com/hexane911/mighty-iframe#readme"
+  "homepage": "https://github.com/tusyama/mighty-iframe#readme"
 }

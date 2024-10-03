@@ -1,16 +1,16 @@
-# mighty-iframe
+# mighty-academy-widget
 
-The `mighty-iframe` package allows you to integrate an iframe-based sidebar into your web application. This sidebar can be triggered by any element on your page and supports both desktop and mobile views.
+The `mighty-academy-widget` package allows you to integrate an iframe-based sidebar into your web application. This sidebar can be triggered by any element on your page and supports both desktop and mobile views.
 
 ## Installation
-To use the `mighty-iframe` package, include the following script in your HTML file:
+To use the `mighty-academy-widget` package, include the following script in your HTML file:
 
 ## 1. Installation via npm (for React)
 
 If you are using React, you can install the package via npm:
 
 ```bash
-npm install mighty-iframe
+npm install mighty-academy-widget
 ```
 
 Once installed, you can use React components like MightyWidget and MightyPage. Note: All widgets must be wrapped in MightyWrapper for proper initialization.
@@ -26,7 +26,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App.tsx';
 import './index.css';
-import { MightyWrapper } from 'mighty-iframe';
+import { MightyWrapper } from 'mighty-academy-widget';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -48,7 +48,7 @@ Example usage:
 
 ```JSX
 import React from 'react';
-import { MightyWidget } from 'mighty-iframe';
+import { MightyWidget } from 'mighty-academy-widget';
 
 const App = () => {
   return (
@@ -79,7 +79,7 @@ Example usage:
 
 ```JSX
 import React from 'react';
-import { MightyPage } from 'mighty-iframe';
+import { MightyPage } from 'mighty-academy-widget';
 
 const App = () => {
   return (
@@ -105,7 +105,7 @@ If you are not using React and want to use web components directly in HTML, you 
 
 ```html
 <head>
-  <script src="https://unpkg.com/mighty-iframe@latest/dist/mightyIframeIntegration.js"></script>
+  <script src="https://unpkg.com/mighty-academy-widget@latest/dist/mightyIframeIntegration.js"></script>
 </head>
 ```
 
@@ -137,7 +137,7 @@ Example usage:
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://unpkg.com/mighty-iframe@latest/dist/mightyIframeIntegration.js"></script>
+  <script src="https://unpkg.com/mighty-academy-widget@latest/dist/mightyIframeIntegration.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       mightyIframeIntegration.authorizePackage('dark');
@@ -172,7 +172,7 @@ Example usage:
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://unpkg.com/mighty-iframe@latest/dist/mightyIframeIntegration.js"></script>
+  <script src="https://unpkg.com/mighty-academy-widget@latest/dist/mightyIframeIntegration.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       mightyIframeIntegration.authorizePackage('dark');

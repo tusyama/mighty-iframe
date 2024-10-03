@@ -1,4 +1,4 @@
-declare module 'mighty-iframe' {
+declare module 'mighty-academy-widget' {
   export interface MightyWidgetProps {
     partnerId: string;
     targetUrl?: string;
