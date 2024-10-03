@@ -1,6 +1,6 @@
 {
-  "name": "mighty-iframe",
-  "version": "1.5.2",
+  "name": "mighty-academy-widget",
+  "version": "1.5.1",
   "description": "A sidebar widget for embedding mighty courses in iframes.",
   "main": "dist/mightyIframeIntegration.js",
   "types": "dist/mightyIframeIntegration.react.d.ts",
