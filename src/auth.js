@@ -1,4 +1,4 @@
-import { registerMightyWidget } from "./web/migtyWidget";
+import { registerMightyWidget } from "./web/mightyWidget";
 import { Sidebar } from "./sidebar";
 import { registerMightyPage } from "./web/mightyPage";
 
