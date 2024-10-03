@@ -1,30 +1,198 @@
-# React + TypeScript + Vite
+# mighty-iframe
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The `mighty-iframe` package allows you to integrate an iframe-based sidebar into your web application. This sidebar can be triggered by any element on your page and supports both desktop and mobile views.
 
-Currently, two official plugins are available:
+## Installation
+To use the `mighty-iframe` package, include the following script in your HTML file:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 1. Installation via npm (for React)
 
-## Expanding the ESLint configuration
+If you are using React, you can install the package via npm:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+npm install mighty-iframe
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Once installed, you can use React components like MightyWidget and MightyPage. Note: All widgets must be wrapped in MightyWrapper for proper initialization.
+
+
+## Usage in React
+
+### Step 1: Wrap your application with MightyWrapper
+
+
+```JSX
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App.tsx';
+import './index.css';
+import { MightyWrapper } from 'mighty-iframe';
+
+ReactDOM.render(
+  <React.StrictMode>
+    <MightyWrapper>
+      <App />
+    </MightyWrapper>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+```
+
+MightyWrapper ensures proper initialization of all widgets in your application.
+
+## 1. MightyWidget
+
+MightyWidget is a React component that allows embedding a sidebar widget, which opens when a button or another element is clicked.
+
+Example usage:
+
+```JSX
+import React from 'react';
+import { MightyWidget } from 'mighty-iframe';
+
+const App = () => {
+  return (
+    <div>
+      <MightyWidget partnerId="Magic_Ball" targetUrl="https://app.mighty.study/courses/123/456/789" theme="light" logoSrc="https://images.com/some-image.jpeg">
+        <button>Click to Learn</button>
+      </MightyWidget>
+    </div>
+  );
+};
+
+export default App;
+```
+
+Parameters:
+
+* partnerId (required): The partner ID for displaying content.
+* targetUrl (optional): The URL of the course to display.
+* percent (optional): The width percentage for displaying the sidebar.
+* theme (optional): The theme for displaying the widget (dark or light).
+* logoSrc: Your logo to display while loading content.
+
+### 2. MightyPage
+
+MightyPage is a React component that allows embedding a page with an iframe to display content from the Mighty platform based on parameters.
+
+Example usage:
+
+```JSX
+import React from 'react';
+import { MightyPage } from 'mighty-iframe';
+
+const App = () => {
+  return (
+    <div style={{ width: '100%', height: '100vh' }}>
+      <MightyPage partnerId="Magic_Ball" targetUrl="https://app.mighty.study/courses/123/456/789" theme="dark" logoSrc="https://images.com/some-image.jpeg"/>
+    </div>
+  );
+};
+
+export default App;
+```
+
+Parameters:
+
+* partnerId (required): The partner ID for displaying content.
+* targetUrl (optional): The URL of the course to display.
+* theme (optional): The theme for displaying the widget (dark or light).
+* logoSrc: Your logo to display while loading content.
+
+## 2. Installation via CDN (for web components)
+
+If you are not using React and want to use web components directly in HTML, you can load the package via CDN using unpkg in head tag:
+
+```html
+<head>
+  <script src="https://unpkg.com/mighty-iframe@latest/dist/mightyIframeIntegration.js"></script>
+</head>
+```
+
+This will load the web components mighty-widget and mighty-page, which you can use in your HTML code.
+
+### Step 1: Initialize the package
+
+You must call the authorizePackage function to initialize the package:
+
+```html
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    mightyIframeIntegration.authorizePackage('dark'); // Initialize the package with a theme
+  });
+</script>
+```
+
+## Usage in HTML
+
+### 1. mighty-widget
+
+<mighty-widget> is a web component similar to the React version. It allows adding a sidebar widget, which opens when elements inside it are clicked.
+
+Example usage:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://unpkg.com/mighty-iframe@latest/dist/mightyIframeIntegration.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      mightyIframeIntegration.authorizePackage('dark');
+    });
+  </script>
+</head>
+<body>
+  <mighty-widget partnerid="Magic_Ball" targeturl="https://app.mighty.study/courses/123/456/789" theme="light" logoSrc="https://images.com/some-image.jpeg">
+    <button>Click to Learn</button>
+  </mighty-widget>
+</body>
+</html>
+```
+### Attributes:
+
+* partnerid (required): The partner ID for displaying content.
+* targeturl (optional): The URL of the course to display.
+* percent (optional): The width percentage for displaying the sidebar.
+* theme (optional): The theme for displaying the widget (dark or light).
+* logoSrc: Your logo to display while loading content.
+
+### 2. mighty-page
+
+<mighty-page> is a web component that allows displaying content via an iframe.
+
+Example usage:
+
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://unpkg.com/mighty-iframe@latest/dist/mightyIframeIntegration.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      mightyIframeIntegration.authorizePackage('dark');
+    });
+  </script>
+</head>
+<body>
+  <mighty-page partnerid="Magic_Ball" targeturl="https://app.mighty.study/courses/123/456/789" theme="dark" style="width: 100%; height: 100vh;" logoSrc="https://images.com/ome-image.jpeg">
+  </mighty-page>
+</body>
+</html>
+```
+### Attributes
+
+* partnerid (required): The partner ID for displaying content.
+* targeturl (optional): The URL of the course to display.
+* theme (optional): The theme for displaying the widget (dark or light).
+* logoSrc: Your logo to display while loading content.
+
+### Features
+
+* MightyWidget: Used for creating clickable widgets that open a sidebar with content.
+* MightyPage: Used for displaying a page with content in an iframe.
