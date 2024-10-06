@@ -1,5 +1,4 @@
 import { getTheme } from "../auth";
-import { Loader } from "../loader";
 
 class MightyPage extends HTMLElement {
   constructor() {
@@ -7,7 +6,6 @@ class MightyPage extends HTMLElement {
     this.partnerId = this.getAttribute('partnerid') || null;
     this.targetUrl = this.getAttribute('targeturl') || null;
     this.theme = this.getAttribute('theme') || getTheme();
-    this.logoSrc = this.getAttribute('logoSrc') || '';
     this.iframe = null;
     this.baseUrl = 'https://test.mighty.study';
     this.partnerKey = '099d94c60458dd7429e95eaca9cb622c9246a17a7e35d8859284051c48b3fd11';
@@ -39,7 +37,6 @@ class MightyPage extends HTMLElement {
 
     const partnerId = this.getAttribute('partnerid');
     const targetUrl = this.getAttribute('targeturl');
-    const logoSrc = this.getAttribute('logoSrc');
     if (!partnerId) {
       console.error('partnerId is not defined');
       return;
@@ -81,9 +78,6 @@ class MightyPage extends HTMLElement {
 
     this.appendChild(iframe);
     this.iframe = iframe;
-
-    const loader = new Loader(logoSrc, theme, true)
-    loader.showLoader();
   }
 }
 
