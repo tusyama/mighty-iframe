@@ -1,5 +1,4 @@
 import { checkAuthorization, getTheme } from './auth';
-import { Loader } from './loader';
 
 export class Sidebar {
   constructor() {
@@ -11,7 +10,6 @@ export class Sidebar {
     this.baseUrl = 'https://test.mighty.study';
     this.partnerKey = '099d94c60458dd7429e95eaca9cb622c9246a17a7e35d8859284051c48b3fd11';
     this.sidebarMapTriggers = {};
-    this.logoSrc = '';
     this.addStyles();
     this.initObserverWhenReady();
 
@@ -203,17 +201,17 @@ export class Sidebar {
     });
   }
 
-  openSidebar(partnerId, course, theme, percent, logoSrc) {
+  openSidebar(partnerId, course, theme, percent) {
     if (this.currentSidebar) {
       this.closeSidebar(this.currentSidebar).then(() => {
-        this.createAndOpenSidebar(partnerId, course, theme, percent, logoSrc);
+        this.createAndOpenSidebar(partnerId, course, theme, percent);
       });
     } else {
-      this.createAndOpenSidebar(partnerId, course, theme, percent, logoSrc);
+      this.createAndOpenSidebar(partnerId, course, theme, percent);
     }
   }
 
-  createAndOpenSidebar(partnerId, course = null, theme = null, percent, logoSrc = '') {
+  createAndOpenSidebar(partnerId, course = null, theme = null, percent) {
     this.percent = percent ? percent : '40%';
     const { sidebar, iframe } = this.createSidebar(percent);
     const haveACourse = course !== null && course?.courseId !== null;
@@ -245,8 +243,6 @@ export class Sidebar {
       }
     }, 10); // Small delay to apply initial state
     this.currentSidebar = sidebar;
-    const loader = new Loader(logoSrc, theme);
-    loader.showLoader();
   }
 
   parseCourseFromUrl(url) {
@@ -286,7 +282,7 @@ export class Sidebar {
     return course;
   }
 
-  initSidebar(selector, partnerId, course, theme, percentW, logoSrc) {
+  initSidebar(selector, partnerId, course, theme, percentW) {
     if (!checkAuthorization()) {
       console.error('Package not authorized. Please provide a valid partnerId.');
       return;
@@ -305,11 +301,11 @@ export class Sidebar {
       }
 
       const handler = () => {
-        this.openSidebar(partnerId, course, theme, percent, logoSrc);
+        this.openSidebar(partnerId, course, theme, percent);
       };
 
       element.addEventListener("click", handler);
-      this.initializedTriggers.set(selector, { element, handler, partnerId, course, theme, percent, logoSrc });
+      this.initializedTriggers.set(selector, { element, handler, partnerId, course, theme, percent });
     } else {
       console.error(`Element with selector "${selector}" not found.`);
     }
@@ -359,7 +355,7 @@ export class Sidebar {
   reinitializeTriggers(element) {
     this.setTriggers.forEach((trigger, selector) => {
       if (element.matches(selector) || element.querySelector(selector)) {
-        this.initSidebar(selector, this.sidebarMapTriggers[selector].partnerId, this.sidebarMapTriggers[selector].course, this.sidebarMapTriggers[selector].theme, this.sidebarMapTriggers[selector].percent, this.sidebarMapTriggers[selector].logoSrc);
+        this.initSidebar(selector, this.sidebarMapTriggers[selector].partnerId, this.sidebarMapTriggers[selector].course, this.sidebarMapTriggers[selector].theme, this.sidebarMapTriggers[selector].percent);
       }
     });
   }
