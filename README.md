@@ -53,7 +53,7 @@ import { MightyWidget } from 'mighty-academy-widget';
 const App = () => {
   return (
     <div>
-      <MightyWidget partnerId="Magic_Ball" targetUrl="https://app.mighty.study/courses/123/456/789" theme="light" logoSrc="https://images.com/some-image.jpeg">
+      <MightyWidget partnerId="Magic_Ball" targetUrl="https://app.mighty.study/courses/123/456/789" theme="light">
         <button>Click to Learn</button>
       </MightyWidget>
     </div>
@@ -69,7 +69,6 @@ Parameters:
 * targetUrl (optional): The URL of the course to display.
 * percent (optional): The width percentage for displaying the sidebar.
 * theme (optional): The theme for displaying the widget (dark or light).
-* logoSrc: Your logo to display while loading content.
 
 ### 2. MightyPage
 
@@ -84,7 +83,7 @@ import { MightyPage } from 'mighty-academy-widget';
 const App = () => {
   return (
     <div style={{ width: '100%', height: '100vh' }}>
-      <MightyPage partnerId="Magic_Ball" targetUrl="https://app.mighty.study/courses/123/456/789" theme="dark" logoSrc="https://images.com/some-image.jpeg"/>
+      <MightyPage partnerId="Magic_Ball" targetUrl="https://app.mighty.study/courses/123/456/789" theme="dark"/>
     </div>
   );
 };
@@ -97,7 +96,6 @@ Parameters:
 * partnerId (required): The partner ID for displaying content.
 * targetUrl (optional): The URL of the course to display.
 * theme (optional): The theme for displaying the widget (dark or light).
-* logoSrc: Your logo to display while loading content.
 
 ## 2. Installation via CDN (for web components)
 
@@ -145,7 +143,7 @@ Example usage:
   </script>
 </head>
 <body>
-  <mighty-widget partnerid="Magic_Ball" targeturl="https://app.mighty.study/courses/123/456/789" theme="light" logoSrc="https://images.com/some-image.jpeg">
+  <mighty-widget partnerid="Magic_Ball" targeturl="https://app.mighty.study/courses/123/456/789" theme="light">
     <button>Click to Learn</button>
   </mighty-widget>
 </body>
@@ -157,7 +155,6 @@ Example usage:
 * targeturl (optional): The URL of the course to display.
 * percent (optional): The width percentage for displaying the sidebar.
 * theme (optional): The theme for displaying the widget (dark or light).
-* logoSrc: Your logo to display while loading content.
 
 ### 2. mighty-page
 
@@ -180,7 +177,7 @@ Example usage:
   </script>
 </head>
 <body>
-  <mighty-page partnerid="Magic_Ball" targeturl="https://app.mighty.study/courses/123/456/789" theme="dark" style="width: 100%; height: 100vh;" logoSrc="https://images.com/ome-image.jpeg">
+  <mighty-page partnerid="Magic_Ball" targeturl="https://app.mighty.study/courses/123/456/789" theme="dark" style="width: 100%; height: 100vh;">
   </mighty-page>
 </body>
 </html>
@@ -190,7 +187,6 @@ Example usage:
 * partnerid (required): The partner ID for displaying content.
 * targeturl (optional): The URL of the course to display.
 * theme (optional): The theme for displaying the widget (dark or light).
-* logoSrc: Your logo to display while loading content.
 
 ### Features
 
