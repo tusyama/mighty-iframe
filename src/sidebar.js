@@ -215,6 +215,7 @@ export class Sidebar {
     this.percent = percent ? percent : '40%';
     const { sidebar, iframe } = this.createSidebar(percent);
     const haveACourse = course !== null && course?.courseId !== null;
+    const isLeaders = course !== null && !!course.leaderboard
     const currentTheme = theme == null ? getTheme() : theme;
     const themeParams = currentTheme ? `&theme=${currentTheme}` : '&'
 
@@ -234,6 +235,11 @@ export class Sidebar {
       src += `?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
     }
 
+    if (isLeaders) {
+      src = `${this.baseUrl}/play/leaderboard/${partnerId}`;
+      src += `?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
+    }
+
     iframe.src = src;
     document.body.appendChild(sidebar);
     setTimeout(() => {
@@ -249,6 +255,8 @@ export class Sidebar {
     if (!url) {
       return null;
     }
+
+    if (url.includes('leaderboard')) return { leaderboard: true };
 
     const courseIndex = url.indexOf('/courses/');
     if (courseIndex === -1) {
