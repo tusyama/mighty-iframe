@@ -58,7 +58,7 @@ class MightyPage extends HTMLElement {
       if (targetUrl[targetUrl.length - 1] === '/') {
         newTarget = targetUrl.slice(0, -1);
       }
-      src = `${newTarget}/?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
+      src = `${newTarget}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
     }
 
     iframe.src = src;

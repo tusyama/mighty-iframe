@@ -222,7 +222,7 @@ export class Sidebar {
         newTarget = targetUrl.slice(0, -1);
       }
 
-      src = `${newTarget}/?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`
+      src = `${newTarget}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`
     }
 
     iframe.src = src;
