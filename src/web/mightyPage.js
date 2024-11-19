@@ -54,7 +54,11 @@ class MightyPage extends HTMLElement {
 
     let src = `${this.baseUrl}/space/${partnerId}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
     if (targetUrl && targetUrl.includes(this.baseUrl)) {
-      src = `${targetUrl}/?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
+      let newTarget = targetUrl;
+      if (targetUrl[targetUrl.length - 1] === '/') {
+        newTarget = targetUrl.slice(0, -1);
+      }
+      src = `${newTarget}/?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
     }
 
     iframe.src = src;
