@@ -11,7 +11,7 @@ function authorizePackage(theme = 'dark') {
   themeMighty = theme;
 
   const sidebar = new Sidebar();
-  const initSidebar = ({ selector, partnerId, course, theme, percent }) => sidebar.initSidebar(selector, partnerId, course, theme, percent);
+  const initSidebar = ({ selector, partnerId, theme, percent }) => sidebar.initSidebar(selector, partnerId, theme, percent);
   
   window.initSidebar = initSidebar;
   window.mightySidebar = sidebar;

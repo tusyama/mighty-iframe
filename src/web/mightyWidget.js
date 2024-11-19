@@ -58,8 +58,7 @@ class MightyWidget extends HTMLElement {
         this.sidebarInstance = new Sidebar();
       }
   
-      const course = this.sidebarInstance.parseCourseFromUrl(this.targetUrl);
-      this.sidebarInstance.openSidebar(this.partnerId, course, this.theme, this.percent);
+      this.sidebarInstance.openSidebar(this.partnerId, this.targetUrl, this.theme, this.percent);
     }
   }
   

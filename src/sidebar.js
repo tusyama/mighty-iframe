@@ -12,15 +12,12 @@ export class Sidebar {
     this.sidebarMapTriggers = {};
     this.addStyles();
     this.initObserverWhenReady();
-
-    console.log(getTheme());
   }
 
   addStyles() {
     if (document.querySelector(`#${this.mightyStyleId}`)) {
       return;
     }
-    console.log(getTheme());
     const style = document.createElement('style');
     style.id = this.mightyStyleId;
     style.textContent = `
@@ -201,37 +198,26 @@ export class Sidebar {
     });
   }
 
-  openSidebar(partnerId, course, theme, percent) {
+  openSidebar(partnerId, targetUrl, theme, percent) {
     if (this.currentSidebar) {
       this.closeSidebar(this.currentSidebar).then(() => {
-        this.createAndOpenSidebar(partnerId, course, theme, percent);
+        this.createAndOpenSidebar(partnerId, targetUrl, theme, percent);
       });
     } else {
-      this.createAndOpenSidebar(partnerId, course, theme, percent);
+      this.createAndOpenSidebar(partnerId, targetUrl, theme, percent);
     }
   }
 
-  createAndOpenSidebar(partnerId, course = null, theme = null, percent) {
+  createAndOpenSidebar(partnerId, targetUrl, theme = null, percent) {
     this.percent = percent ? percent : '40%';
     const { sidebar, iframe } = this.createSidebar(percent);
-    const haveACourse = course !== null && course?.courseId !== null;
     const currentTheme = theme == null ? getTheme() : theme;
     const themeParams = currentTheme ? `&theme=${currentTheme}` : '&'
 
     let src = `${this.baseUrl}/space/${partnerId}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
 
-    if (haveACourse) {
-      src = `${this.baseUrl}/courses/${course.courseId}`;
-    
-      if (course.chapterId !== null) {
-        src += `/${course.chapterId}`;
-      }
-    
-      if (course.lessonId !== null) {
-        src += `/${course.lessonId}`;
-      }
-      
-      src += `?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
+    if (targetUrl && targetUrl.includes(this.baseUrl)) {
+      src = `${targetUrl}/?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`
     }
 
     iframe.src = src;
@@ -245,55 +231,16 @@ export class Sidebar {
     this.currentSidebar = sidebar;
   }
 
-  parseCourseFromUrl(url) {
-    if (!url) {
-      return null;
-    }
-
-    const courseIndex = url.indexOf('/courses/');
-    if (courseIndex === -1) {
-      return null;
-    }
-
-    const coursePart = url.slice(courseIndex + 9);
-    const parts = coursePart.split('/').filter(Boolean);
-
-    const course = {
-      courseId: null,
-      chapterId: null,
-      lessonId: null
-    };
-
-    if (parts.length >= 3) {
-      course.lessonId = parts[parts.length - 1];
-      course.chapterId = parts[parts.length - 2];
-      course.courseId = parts[parts.length - 3];
-    } else if (parts.length === 2) {
-      course.chapterId = parts[parts.length - 1];
-      course.courseId = parts[parts.length - 2];
-    } else if (parts.length === 1) {
-      course.courseId = parts[parts.length - 1];
-    }
-
-    if (!course.courseId && !course.chapterId && !course.lessonId) {
-      return null;
-    }
-
-    return course;
-  }
-
-  initSidebar(selector, partnerId, course, theme, percentW) {
+  initSidebar(selector, partnerId, theme, percentW) {
     if (!checkAuthorization()) {
       console.error('Package not authorized. Please provide a valid partnerId.');
       return;
     }
-    console.log({ selector, percentW })
-    console.log(this.sidebarMapTriggers[selector])
     const percent = percentW ? percentW : null;
 
     const element = document.querySelector(selector);
     this.setTriggers.add(selector);
-    this.sidebarMapTriggers[selector] = { course, theme, partnerId, percent }
+    this.sidebarMapTriggers[selector] = { theme, partnerId, percent }
     if (element) {
       if (this.initializedTriggers.has(selector)) {
         const { handler } = this.initializedTriggers.get(selector);
@@ -301,11 +248,11 @@ export class Sidebar {
       }
 
       const handler = () => {
-        this.openSidebar(partnerId, course, theme, percent);
+        this.openSidebar(partnerId, theme, percent);
       };
 
       element.addEventListener("click", handler);
-      this.initializedTriggers.set(selector, { element, handler, partnerId, course, theme, percent });
+      this.initializedTriggers.set(selector, { element, handler, partnerId, theme, percent });
     } else {
       console.error(`Element with selector "${selector}" not found.`);
     }
@@ -355,7 +302,7 @@ export class Sidebar {
   reinitializeTriggers(element) {
     this.setTriggers.forEach((trigger, selector) => {
       if (element.matches(selector) || element.querySelector(selector)) {
-        this.initSidebar(selector, this.sidebarMapTriggers[selector].partnerId, this.sidebarMapTriggers[selector].course, this.sidebarMapTriggers[selector].theme, this.sidebarMapTriggers[selector].percent);
+        this.initSidebar(selector, this.sidebarMapTriggers[selector].partnerId, this.sidebarMapTriggers[selector].theme, this.sidebarMapTriggers[selector].percent);
       }
     });
   }
