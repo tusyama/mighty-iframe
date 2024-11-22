@@ -7,7 +7,7 @@ class MightyPage extends HTMLElement {
     this.targetUrl = this.getAttribute("targeturl") || null;
     this.theme = this.getAttribute("theme") || getTheme();
     this.iframe = null;
-    this.baseUrl = "https://test.mighty.study";
+    this.baseUrl = "https://app.mighty.study";
     this.partnerKey =
       "099d94c60458dd7429e95eaca9cb622c9246a17a7e35d8859284051c48b3fd11";
     this.sidebarInstance = window.mightySidebar;
