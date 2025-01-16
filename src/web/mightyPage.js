@@ -5,6 +5,7 @@ class MightyPage extends HTMLElement {
     super();
     this.partnerId = this.getAttribute("partnerid") || null;
     this.targetUrl = this.getAttribute("targeturl") || null;
+    this.scrollOff = this.getAttribute("scrolloff") || false;
     this.theme = this.getAttribute("theme") || getTheme();
     this.iframe = null;
     this.baseUrl = "https://app.mighty.study";
@@ -14,7 +15,7 @@ class MightyPage extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ["partnerid", "targeturl", "theme"];
+    return ["partnerid", "targeturl", "theme", "scrolloff"];
   }
 
   connectedCallback() {
@@ -36,13 +37,17 @@ class MightyPage extends HTMLElement {
       this.removeChild(this.iframe);
     }
 
-    const partnerId = this.getAttribute("partnerid");
-    const targetUrl = this.getAttribute("targeturl");
-    if (!partnerId) {
+    const partnerIdRaw = this.getAttribute("partnerid");
+
+    if (!partnerIdRaw) {
       console.error("partnerId is not defined");
       return;
     }
 
+    const partnerId = partnerIdRaw.replaceAll(" ", "_");
+
+    const targetUrl = this.getAttribute("targeturl");
+    const scrollOff = this.getAttribute("scrolloff");
     const theme = this.getAttribute("theme") || getTheme();
     const themeParams = theme ? `&theme=${theme}` : "&";
 
@@ -51,14 +56,15 @@ class MightyPage extends HTMLElement {
     iframe.height = "100%";
     iframe.style.border = "none";
     iframe.style.display = "block";
+    iframe.style.overflow = scrollOff === "true" ? "hidden" : "auto";
 
     let src = `${this.baseUrl}/space/${partnerId}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
     if (targetUrl && targetUrl.includes(this.baseUrl)) {
       let newTarget = targetUrl;
-      if (targetUrl[targetUrl.length - 1] === '/') {
+      if (targetUrl[targetUrl.length - 1] === "/") {
         newTarget = targetUrl.slice(0, -1);
       }
-      src = `${newTarget}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
+      src = `${newTarget}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}&scrollOff=${scrollOff}`;
     }
 
     iframe.src = src;
