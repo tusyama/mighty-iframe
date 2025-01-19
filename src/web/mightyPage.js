@@ -66,7 +66,10 @@ class MightyPage extends HTMLElement {
     params.set("scrollOff", scrollOff);
     params.set("studyHeadOff", studyHeadOff);
 
-    let src = `${this.baseUrl}/space/${partnerId}?${params.toString()}`;
+    let src = `${this.baseUrl}/space/${params.get(
+      "partnerID"
+    )}?${params.toString()}`;
+
     if (targetUrl && targetUrl.includes(this.baseUrl)) {
       let newTarget = targetUrl;
       if (targetUrl[targetUrl.length - 1] === "/") {
