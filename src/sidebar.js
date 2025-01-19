@@ -1,14 +1,15 @@
-import { checkAuthorization, getTheme } from './auth';
+import { checkAuthorization, getTheme } from "./auth";
 
 export class Sidebar {
   constructor() {
     this.currentSidebar = null;
     this.initializedTriggers = new Map();
     this.setTriggers = new Set();
-    this.mightySidebarId = 'mighty-course-sidebar';
-    this.mightyStyleId = 'mighty-sidebar-styles';
-    this.baseUrl = 'https://app.mighty.study';
-    this.partnerKey = '099d94c60458dd7429e95eaca9cb622c9246a17a7e35d8859284051c48b3fd11';
+    this.mightySidebarId = "mighty-course-sidebar";
+    this.mightyStyleId = "mighty-sidebar-styles";
+    this.baseUrl = "https://app.mighty.study";
+    this.partnerKey =
+      "099d94c60458dd7429e95eaca9cb622c9246a17a7e35d8859284051c48b3fd11";
     this.sidebarMapTriggers = {};
     this.addStyles();
     this.initObserverWhenReady();
@@ -18,7 +19,7 @@ export class Sidebar {
     if (document.querySelector(`#${this.mightyStyleId}`)) {
       return;
     }
-    const style = document.createElement('style');
+    const style = document.createElement("style");
     style.id = this.mightyStyleId;
     style.textContent = `
       #${this.mightySidebarId} {
@@ -112,27 +113,30 @@ export class Sidebar {
   }
 
   createSidebar(percent) {
-    document.documentElement.style.setProperty('--mighty-expanded-width', this.percent);
-    const sidebar = document.createElement('div');
+    document.documentElement.style.setProperty(
+      "--mighty-expanded-width",
+      this.percent
+    );
+    const sidebar = document.createElement("div");
     sidebar.id = this.mightySidebarId;
     // if (percent) {
-      // sidebar.classList.add('c');
+    // sidebar.classList.add('c');
     // }
 
-    const header = document.createElement('div');
-    const frameBox = document.createElement('div');
-    header.classList.add('mighty-header-sidebar');
-    header.style.display = 'flex';
-    header.style.justifyContent = 'flex-start';
-    header.style.alignItems = 'center';
-    header.style.padding = '10px';
-    frameBox.classList.add('frame-box');
-    frameBox.setAttribute("id", 'frame-box');
+    const header = document.createElement("div");
+    const frameBox = document.createElement("div");
+    header.classList.add("mighty-header-sidebar");
+    header.style.display = "flex";
+    header.style.justifyContent = "flex-start";
+    header.style.alignItems = "center";
+    header.style.padding = "10px";
+    frameBox.classList.add("frame-box");
+    frameBox.setAttribute("id", "frame-box");
     // Создание кнопки
     const createButton = (svgContent, onClick, additionalClass) => {
-      const button = document.createElement('div');
+      const button = document.createElement("div");
       button.innerHTML = svgContent;
-      button.classList.add('mighty-sidebar-button');
+      button.classList.add("mighty-sidebar-button");
       if (additionalClass) {
         button.classList.add(additionalClass);
       }
@@ -146,7 +150,7 @@ export class Sidebar {
       () => {
         this.closeSidebar(sidebar);
       },
-      'mighty-button-close'
+      "mighty-button-close"
     );
 
     // Кнопка изменения ширины
@@ -155,7 +159,7 @@ export class Sidebar {
       '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.7852 15.3131L8.71817 9.24609M8.71817 9.24609L8.71817 15.3131M8.71817 9.24609L14.7852 9.24609" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M17.2148 17.7383L23.2818 23.8053M23.2818 23.8053V17.7383M23.2818 23.8053H17.2148" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
       () => {
         expanded = !expanded;
-        sidebar.classList.toggle('mighty-sidebar-expanded');
+        sidebar.classList.toggle("mighty-sidebar-expanded");
       }
     );
 
@@ -163,7 +167,7 @@ export class Sidebar {
     header.appendChild(closeButton);
     sidebar.appendChild(header);
 
-    const iframe = document.createElement('iframe');
+    const iframe = document.createElement("iframe");
     frameBox.appendChild(iframe);
     sidebar.appendChild(frameBox);
 
@@ -172,24 +176,28 @@ export class Sidebar {
 
   closeSidebar(sidebar) {
     return new Promise((resolve) => {
-      if (sidebar.classList.contains('mighty-sidebar-expanded')) {
+      if (sidebar.classList.contains("mighty-sidebar-expanded")) {
         // If sidebar is in fullscreen mode, revert it first
-        sidebar.classList.remove('mighty-sidebar-expanded');
+        sidebar.classList.remove("mighty-sidebar-expanded");
         setTimeout(() => {
-          sidebar.classList.remove('mighty-sidebar-open'); // Sliding animation
+          sidebar.classList.remove("mighty-sidebar-open"); // Sliding animation
           setTimeout(() => {
             if (document.querySelector(`#${this.mightySidebarId}`)) {
-              document.body.removeChild(document.querySelector(`#${this.mightySidebarId}`));
+              document.body.removeChild(
+                document.querySelector(`#${this.mightySidebarId}`)
+              );
             }
             this.currentSidebar = null; // Reset global variable
             resolve();
           }, 300); // Wait for the sliding animation to complete
         }, 300); // Wait for the width change animation to complete
       } else {
-        sidebar.classList.remove('mighty-sidebar-open'); // Sliding animation
+        sidebar.classList.remove("mighty-sidebar-open"); // Sliding animation
         setTimeout(() => {
           if (document.querySelector(`#${this.mightySidebarId}`)) {
-            document.body.removeChild(document.querySelector(`#${this.mightySidebarId}`));
+            document.body.removeChild(
+              document.querySelector(`#${this.mightySidebarId}`)
+            );
           }
           this.currentSidebar = null; // Reset global variable
           resolve();
@@ -209,28 +217,28 @@ export class Sidebar {
   }
 
   createAndOpenSidebar(partnerId, targetUrl, theme = null, percent) {
-    this.percent = percent ? percent : '40%';
+    this.percent = percent ? percent : "40%";
     const { sidebar, iframe } = this.createSidebar(percent);
     const currentTheme = theme == null ? getTheme() : theme;
-    const themeParams = currentTheme ? `&theme=${currentTheme}` : '&'
+    const themeParams = currentTheme ? `&theme=${currentTheme}` : "&";
 
     let src = `${this.baseUrl}/space/${partnerId}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
 
     if (targetUrl && targetUrl.includes(this.baseUrl)) {
       let newTarget = targetUrl;
-      if (targetUrl[targetUrl.length - 1] === '/') {
+      if (targetUrl[targetUrl.length - 1] === "/") {
         newTarget = targetUrl.slice(0, -1);
       }
 
-      src = `${newTarget}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`
+      src = `${newTarget}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
     }
 
     iframe.src = src;
     document.body.appendChild(sidebar);
     setTimeout(() => {
-      sidebar.classList.add('mighty-sidebar-open'); // Animation for new sidebar
+      sidebar.classList.add("mighty-sidebar-open"); // Animation for new sidebar
       if (theme) {
-        sidebar.classList.add(theme)
+        sidebar.classList.add(theme);
       }
     }, 10); // Small delay to apply initial state
     this.currentSidebar = sidebar;
@@ -238,14 +246,16 @@ export class Sidebar {
 
   initSidebar(selector, partnerId, theme, percentW) {
     if (!checkAuthorization()) {
-      console.error('Package not authorized. Please provide a valid partnerId.');
+      console.error(
+        "Package not authorized. Please provide a valid partnerId."
+      );
       return;
     }
     const percent = percentW ? percentW : null;
 
     const element = document.querySelector(selector);
     this.setTriggers.add(selector);
-    this.sidebarMapTriggers[selector] = { theme, partnerId, percent }
+    this.sidebarMapTriggers[selector] = { theme, partnerId, percent };
     if (element) {
       if (this.initializedTriggers.has(selector)) {
         const { handler } = this.initializedTriggers.get(selector);
@@ -257,7 +267,13 @@ export class Sidebar {
       };
 
       element.addEventListener("click", handler);
-      this.initializedTriggers.set(selector, { element, handler, partnerId, theme, percent });
+      this.initializedTriggers.set(selector, {
+        element,
+        handler,
+        partnerId,
+        theme,
+        percent,
+      });
     } else {
       console.error(`Element with selector "${selector}" not found.`);
     }
@@ -267,21 +283,23 @@ export class Sidebar {
     if (document.body) {
       this.observeDOM();
     } else {
-      document.addEventListener('DOMContentLoaded', () => this.observeDOM());
+      document.addEventListener("DOMContentLoaded", () => this.observeDOM());
     }
   }
 
   observeDOM() {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
-        if (mutation.type === 'childList') {
+        if (mutation.type === "childList") {
           mutation.removedNodes.forEach((node) => {
-            if (node.nodeType === 1) { // Node.ELEMENT_NODE
+            if (node.nodeType === 1) {
+              // Node.ELEMENT_NODE
               this.removeTrigger(node);
             }
           });
           mutation.addedNodes.forEach((node) => {
-            if (node.nodeType === 1) { // Node.ELEMENT_NODE
+            if (node.nodeType === 1) {
+              // Node.ELEMENT_NODE
               this.reinitializeTriggers(node);
             }
           });
@@ -291,7 +309,7 @@ export class Sidebar {
 
     observer.observe(document.body, {
       childList: true,
-      subtree: true
+      subtree: true,
     });
   }
 
@@ -307,7 +325,12 @@ export class Sidebar {
   reinitializeTriggers(element) {
     this.setTriggers.forEach((trigger, selector) => {
       if (element.matches(selector) || element.querySelector(selector)) {
-        this.initSidebar(selector, this.sidebarMapTriggers[selector].partnerId, this.sidebarMapTriggers[selector].theme, this.sidebarMapTriggers[selector].percent);
+        this.initSidebar(
+          selector,
+          this.sidebarMapTriggers[selector].partnerId,
+          this.sidebarMapTriggers[selector].theme,
+          this.sidebarMapTriggers[selector].percent
+        );
       }
     });
   }
