@@ -5,6 +5,7 @@ const MightyPage: React.FC<MightyPageProps> = ({
   partnerId,
   targetUrl,
   scrollOff = false,
+  studyHeadOff = false,
   style = "",
   theme = "dark",
 }) => {
@@ -13,6 +14,7 @@ const MightyPage: React.FC<MightyPageProps> = ({
       partnerId={partnerId}
       targetUrl={targetUrl}
       scrollOff={scrollOff}
+      studyHeadOff={studyHeadOff}
       style={style}
       theme={theme}
     ></mighty-page>

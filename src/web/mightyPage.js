@@ -6,16 +6,17 @@ class MightyPage extends HTMLElement {
     this.partnerId = this.getAttribute("partnerid") || null;
     this.targetUrl = this.getAttribute("targeturl") || null;
     this.scrollOff = this.getAttribute("scrolloff") || false;
+    this.studyHeadOff = this.getAttribute("studyheadoff") || false;
     this.theme = this.getAttribute("theme") || getTheme();
     this.iframe = null;
-    this.baseUrl = "https://test.mighty.study";
+    this.baseUrl = "https://app.mighty.study";
     this.partnerKey =
       "099d94c60458dd7429e95eaca9cb622c9246a17a7e35d8859284051c48b3fd11";
     this.sidebarInstance = window.mightySidebar;
   }
 
   static get observedAttributes() {
-    return ["partnerid", "targeturl", "theme", "scrolloff"];
+    return ["partnerid", "targeturl", "theme", "scrolloff", "studyheadoff"];
   }
 
   connectedCallback() {
@@ -47,9 +48,9 @@ class MightyPage extends HTMLElement {
     const partnerId = partnerIdRaw.replaceAll(" ", "_");
 
     const targetUrl = this.getAttribute("targeturl");
-    const scrollOff = this.getAttribute("scrolloff");
+    const scrollOff = this.getAttribute("scrolloff") || "false";
+    const studyHeadOff = this.getAttribute("studyheadoff") || "false";
     const theme = this.getAttribute("theme") || getTheme();
-    const themeParams = theme ? `&theme=${theme}` : "&";
 
     const iframe = document.createElement("iframe");
     iframe.width = "100%";
@@ -58,13 +59,20 @@ class MightyPage extends HTMLElement {
     iframe.style.display = "block";
     iframe.style.overflow = scrollOff === "true" ? "hidden" : "auto";
 
-    let src = `${this.baseUrl}/space/${partnerId}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}`;
+    const params = new URLSearchParams();
+    params.set("partnerID", partnerId);
+    params.set("partnerToken", this.partnerKey);
+    params.set("theme", theme);
+    params.set("scrollOff", scrollOff);
+    params.set("studyHeadOff", studyHeadOff);
+
+    let src = `${this.baseUrl}/space/${partnerId}?${params.toString()}`;
     if (targetUrl && targetUrl.includes(this.baseUrl)) {
       let newTarget = targetUrl;
       if (targetUrl[targetUrl.length - 1] === "/") {
         newTarget = targetUrl.slice(0, -1);
       }
-      src = `${newTarget}?partnerID=${partnerId}&partnerToken=${this.partnerKey}${themeParams}&scrollOff=${scrollOff}`;
+      src = `${newTarget}?${params.toString()}`;
     }
 
     iframe.src = src;
