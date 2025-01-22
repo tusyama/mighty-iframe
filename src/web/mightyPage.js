@@ -7,6 +7,9 @@ class MightyPage extends HTMLElement {
     this.targetUrl = this.getAttribute("targeturl") || null;
     this.scrollOff = this.getAttribute("scrolloff") || false;
     this.studyHeadOff = this.getAttribute("studyheadoff") || false;
+    this.studyScrollbarHidden =
+      this.getAttribute("studyscrollbarhidden") || false;
+    this.hideSidebards = this.getAttribute("hidesidebards") || false;
     this.theme = this.getAttribute("theme") || getTheme();
     this.iframe = null;
     this.baseUrl = "https://app.mighty.study";
@@ -16,7 +19,15 @@ class MightyPage extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ["partnerid", "targeturl", "theme", "scrolloff", "studyheadoff"];
+    return [
+      "partnerid",
+      "targeturl",
+      "theme",
+      "scrolloff",
+      "studyheadoff",
+      "studyscrollbarhidden",
+      "hidesidebards",
+    ];
   }
 
   connectedCallback() {
@@ -50,6 +61,9 @@ class MightyPage extends HTMLElement {
     const targetUrl = this.getAttribute("targeturl");
     const scrollOff = this.getAttribute("scrolloff") || "false";
     const studyHeadOff = this.getAttribute("studyheadoff") || "false";
+    const studyScrollbarHidden =
+      this.getAttribute("studyscrollbarhidden") || "false";
+    const hideSidebards = this.getAttribute("hidesidebards") || "false";
     const theme = this.getAttribute("theme") || getTheme();
 
     const iframe = document.createElement("iframe");
@@ -65,6 +79,8 @@ class MightyPage extends HTMLElement {
     params.set("theme", theme);
     params.set("scrollOff", scrollOff);
     params.set("studyHeadOff", studyHeadOff);
+    params.set("studyScrollbarHidden", studyScrollbarHidden);
+    params.set("hideSidebards", hideSidebards);
 
     let src = `${this.baseUrl}/space/${params.get(
       "partnerID"

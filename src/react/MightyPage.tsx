@@ -6,6 +6,8 @@ const MightyPage: React.FC<MightyPageProps> = ({
   targetUrl,
   scrollOff = false,
   studyHeadOff = false,
+  hideSidebards = false,
+  studyScrollbarHidden = false,
   style = "",
   theme = "dark",
 }) => {
@@ -15,6 +17,8 @@ const MightyPage: React.FC<MightyPageProps> = ({
       targetUrl={targetUrl}
       scrollOff={scrollOff}
       studyHeadOff={studyHeadOff}
+      hideSidebards={hideSidebards}
+      studyScrollbarHidden={studyScrollbarHidden}
       style={style}
       theme={theme}
     ></mighty-page>
