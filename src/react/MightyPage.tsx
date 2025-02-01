@@ -11,12 +11,14 @@ const MightyPage: React.FC<MightyPageProps> = ({
   hideSidebards = false,
   studyScrollbarHidden = false,
   hideBackButton = false,
+  studyBottomMargin = 50,
 }) => {
   return (
     <mighty-page
       partnerId={partnerId}
       targetUrl={targetUrl}
       scrollOff={scrollOff}
+      studyBottomMargin={studyBottomMargin}
       studyHeadOff={studyHeadOff}
       hideSidebards={hideSidebards}
       studyScrollbarHidden={studyScrollbarHidden}

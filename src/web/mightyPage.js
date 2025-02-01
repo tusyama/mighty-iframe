@@ -11,6 +11,7 @@ class MightyPage extends HTMLElement {
       this.getAttribute("studyscrollbarhidden") || false;
     this.hideSidebards = this.getAttribute("hidesidebards") || false;
     this.hideBackButton = this.getAttribute("hidebackbutton") || false;
+    this.studyBottomMargin = this.getAttribute("studybottommargin") || 50;
     this.theme = this.getAttribute("theme") || getTheme();
     this.iframe = null;
     this.baseUrl = "https://app.mighty.study";
@@ -29,6 +30,7 @@ class MightyPage extends HTMLElement {
       "studyscrollbarhidden",
       "hidesidebards",
       "hidebackbutton",
+      "studybottommargin",
     ];
   }
 
@@ -68,6 +70,7 @@ class MightyPage extends HTMLElement {
     const hideSidebards = this.getAttribute("hidesidebards") || "false";
     const hideBackButton = this.getAttribute("hidebackbutton") || "false";
     const theme = this.getAttribute("theme") || getTheme();
+    const studyBottomMargin = this.getAttribute("studybottommargin") || 50;
 
     const iframe = document.createElement("iframe");
     iframe.width = "100%";
@@ -85,6 +88,7 @@ class MightyPage extends HTMLElement {
     params.set("studyScrollbarHidden", studyScrollbarHidden);
     params.set("hideSidebards", hideSidebards);
     params.set("hideBackButton", hideBackButton);
+    params.set("studyBottomMargin", studyBottomMargin);
 
     let src = `${this.baseUrl}/space/${params.get(
       "partnerID"
