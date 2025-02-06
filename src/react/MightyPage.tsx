@@ -11,6 +11,7 @@ const MightyPage: React.FC<MightyPageProps> = ({
   hideSidebards = false,
   studyScrollbarHidden = false,
   hideBackButton = false,
+  hideNextLessonBtn = false,
   studyBottomMargin = 50,
 }) => {
   return (
@@ -23,6 +24,7 @@ const MightyPage: React.FC<MightyPageProps> = ({
       hideSidebards={hideSidebards}
       studyScrollbarHidden={studyScrollbarHidden}
       hideBackButton={hideBackButton}
+      hideNextLessonBtn={hideNextLessonBtn}
       style={style}
       theme={theme}
     ></mighty-page>
