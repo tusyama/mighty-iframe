@@ -37,9 +37,11 @@ class MightyPage extends HTMLElement {
   }
 
   connectedCallback() {
+    const style = this.getAttribute("style") || "";
     this.style.width = "100%";
     this.style.height = "100vh";
     this.style.display = "block";
+    this.style.cssText += style;
 
     this.renderIframe();
   }
