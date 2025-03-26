@@ -9,7 +9,10 @@ class MightyPage extends HTMLElement {
     this.studyHeadOff = this.getAttribute("studyheadoff") || false;
     this.studyScrollbarHidden =
       this.getAttribute("studyscrollbarhidden") || false;
-    this.hideSidebards = this.getAttribute("hidesidebards") || false;
+    this.hideSidebars =
+      this.getAttribute("hidesidebards") ||
+      this.getAttribute("hidesidebars") ||
+      false;
     this.hideBackButton = this.getAttribute("hidebackbutton") || false;
     this.hideNextLessonBtn = this.getAttribute("hidenextlessonbtn") || false;
     this.studyBottomMargin = this.getAttribute("studybottommargin") || 50;
@@ -30,6 +33,7 @@ class MightyPage extends HTMLElement {
       "studyheadoff",
       "studyscrollbarhidden",
       "hidesidebards",
+      "hideSidebars",
       "hidebackbutton",
       "hidenextlessonbtn",
       "studybottommargin",
@@ -71,7 +75,10 @@ class MightyPage extends HTMLElement {
     const studyHeadOff = this.getAttribute("studyheadoff") || "false";
     const studyScrollbarHidden =
       this.getAttribute("studyscrollbarhidden") || "false";
-    const hideSidebards = this.getAttribute("hidesidebards") || "false";
+    const hideSidebars =
+      this.getAttribute("hidesidebards") ||
+      this.getAttribute("hidesidebars") ||
+      "false";
     const hideBackButton = this.getAttribute("hidebackbutton") || "false";
     const hideNextLessonBtn = this.getAttribute("hidenextlessonbtn") || "false";
     const theme = this.getAttribute("theme") || getTheme();
@@ -91,7 +98,7 @@ class MightyPage extends HTMLElement {
     params.set("scrollOff", scrollOff);
     params.set("studyHeadOff", studyHeadOff);
     params.set("studyScrollbarHidden", studyScrollbarHidden);
-    params.set("hideSidebards", hideSidebards);
+    params.set("hideSidebars", hideSidebars);
     params.set("hideBackButton", hideBackButton);
     params.set("hideNextLessonBtn", hideNextLessonBtn);
     params.set("studyBottomMargin", studyBottomMargin);
