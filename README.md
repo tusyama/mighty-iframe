@@ -3,6 +3,7 @@
 The `mighty-academy-widget` package allows you to integrate an iframe-based sidebar into your web application. This sidebar can be triggered by any element on your page and supports both desktop and mobile views.
 
 ## Installation
+
 To use the `mighty-academy-widget` package, include the following script in your HTML file:
 
 ## 1. Installation via npm (for React)
@@ -15,11 +16,9 @@ npm install mighty-academy-widget
 
 Once installed, you can use React components like MightyWidget and MightyPage. Note: All widgets must be wrapped in MightyWrapper for proper initialization.
 
-
 ## Usage in React
 
 ### Step 1: Wrap your application with MightyWrapper
-
 
 ```JSX
 import React from 'react';
@@ -53,7 +52,7 @@ import { MightyWidget } from 'mighty-academy-widget';
 const App = () => {
   return (
     <div>
-      <MightyWidget partnerId="Magic_Ball" targetUrl="https://app.mighty.study/courses/123/456/789" theme="light">
+      <MightyWidget partnerId="Magic_Ball" targetUrl="https://mighty.study/courses/123/456/789" theme="light">
         <button>Click to Learn</button>
       </MightyWidget>
     </div>
@@ -65,10 +64,10 @@ export default App;
 
 Parameters:
 
-* partnerId (required): The partner ID for displaying content.
-* targetUrl (optional): The URL of the course to display.
-* percent (optional): The width percentage for displaying the sidebar.
-* theme (optional): The theme for displaying the widget (dark or light).
+- partnerId (required): The partner ID for displaying content.
+- targetUrl (optional): The URL of the course to display.
+- percent (optional): The width percentage for displaying the sidebar.
+- theme (optional): The theme for displaying the widget (dark or light).
 
 ### 2. MightyPage
 
@@ -83,7 +82,7 @@ import { MightyPage } from 'mighty-academy-widget';
 const App = () => {
   return (
     <div style={{ width: '100%', height: '100vh' }}>
-      <MightyPage partnerId="Magic_Ball" targetUrl="https://app.mighty.study/courses/123/456/789" theme="dark"/>
+      <MightyPage partnerId="Magic_Ball" targetUrl="https://mighty.study/courses/123/456/789" theme="dark"/>
     </div>
   );
 };
@@ -93,9 +92,9 @@ export default App;
 
 Parameters:
 
-* partnerId (required): The partner ID for displaying content.
-* targetUrl (optional): The URL of the course to display.
-* theme (optional): The theme for displaying the widget (dark or light).
+- partnerId (required): The partner ID for displaying content.
+- targetUrl (optional): The URL of the course to display.
+- theme (optional): The theme for displaying the widget (dark or light).
 
 ## 2. Installation via CDN (for web components)
 
@@ -115,8 +114,8 @@ You must call the authorizePackage function to initialize the package:
 
 ```html
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    mightyIframeIntegration.authorizePackage('dark'); // Initialize the package with a theme
+  document.addEventListener("DOMContentLoaded", function () {
+    mightyIframeIntegration.authorizePackage("dark"); // Initialize the package with a theme
   });
 </script>
 ```
@@ -132,29 +131,34 @@ Example usage:
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://unpkg.com/mighty-academy-widget@latest/dist/mightyIframeIntegration.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      mightyIframeIntegration.authorizePackage('dark');
-    });
-  </script>
-</head>
-<body>
-  <mighty-widget partnerid="Magic_Ball" targeturl="https://app.mighty.study/courses/123/456/789" theme="light">
-    <button>Click to Learn</button>
-  </mighty-widget>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/mighty-academy-widget@latest/dist/mightyIframeIntegration.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        mightyIframeIntegration.authorizePackage("dark");
+      });
+    </script>
+  </head>
+  <body>
+    <mighty-widget
+      partnerid="Magic_Ball"
+      targeturl="https://mighty.study/courses/123/456/789"
+      theme="light"
+    >
+      <button>Click to Learn</button>
+    </mighty-widget>
+  </body>
 </html>
 ```
+
 ### Attributes:
 
-* partnerid (required): The partner ID for displaying content.
-* targeturl (optional): The URL of the course to display.
-* percent (optional): The width percentage for displaying the sidebar.
-* theme (optional): The theme for displaying the widget (dark or light).
+- partnerid (required): The partner ID for displaying content.
+- targeturl (optional): The URL of the course to display.
+- percent (optional): The width percentage for displaying the sidebar.
+- theme (optional): The theme for displaying the widget (dark or light).
 
 ### 2. mighty-page
 
@@ -162,33 +166,38 @@ Example usage:
 
 Example usage:
 
-
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://unpkg.com/mighty-academy-widget@latest/dist/mightyIframeIntegration.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      mightyIframeIntegration.authorizePackage('dark');
-    });
-  </script>
-</head>
-<body>
-  <mighty-page partnerid="Magic_Ball" targeturl="https://app.mighty.study/courses/123/456/789" theme="dark" style="width: 100%; height: 100vh;">
-  </mighty-page>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/mighty-academy-widget@latest/dist/mightyIframeIntegration.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        mightyIframeIntegration.authorizePackage("dark");
+      });
+    </script>
+  </head>
+  <body>
+    <mighty-page
+      partnerid="Magic_Ball"
+      targeturl="https://mighty.study/courses/123/456/789"
+      theme="dark"
+      style="width: 100%; height: 100vh;"
+    >
+    </mighty-page>
+  </body>
 </html>
 ```
+
 ### Attributes
 
-* partnerid (required): The partner ID for displaying content.
-* targeturl (optional): The URL of the course to display.
-* theme (optional): The theme for displaying the widget (dark or light).
+- partnerid (required): The partner ID for displaying content.
+- targeturl (optional): The URL of the course to display.
+- theme (optional): The theme for displaying the widget (dark or light).
 
 ### Features
 
-* MightyWidget: Used for creating clickable widgets that open a sidebar with content.
-* MightyPage: Used for displaying a page with content in an iframe.
+- MightyWidget: Used for creating clickable widgets that open a sidebar with content.
+- MightyPage: Used for displaying a page with content in an iframe.
